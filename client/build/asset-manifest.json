@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/imaan-13/fyp_proj2/static/css/main.b62ea404.css",
+    "main.js": "/imaan-13/fyp_proj2/static/js/main.d536b86e.js",
+    "index.html": "/imaan-13/fyp_proj2/index.html",
+    "main.b62ea404.css.map": "/imaan-13/fyp_proj2/static/css/main.b62ea404.css.map",
+    "main.d536b86e.js.map": "/imaan-13/fyp_proj2/static/js/main.d536b86e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b62ea404.css",
+    "static/js/main.d536b86e.js"
+  ]
+}
