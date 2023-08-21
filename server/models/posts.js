@@ -21,10 +21,11 @@ const postSchema = mongoose.Schema(
     picturePath: String,
     userPicturePath: String,
     likes: [{
-      type: isValidObjectId,
-      ref:"User",
+      // type: isValidObjectId,
+      // ref:"User",
       // of: Boolean,
-      
+      type:Map,
+      of:Boolean,
     }],
     comments: {
       type: Array,
