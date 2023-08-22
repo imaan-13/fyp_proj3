@@ -106,10 +106,10 @@
 //         <PostWidget
 //           key={post._id}
 //           postId={post._id}
-//           postUserId={post.postedBy._id}
-//           name={`${post.postedBy.firstName} ${post.postedBy.lastName}`}
+//           postUserId={post.postedBy}
+//         //   name={`${post.postedBy.firstName} ${post.postedBy.lastName}`}
 //           description={post.body}
-//           picturePath={post.photo}
+//         //   picturePath={post.photo}
 //         />
 //       ))}
 //     </>
@@ -117,3 +117,155 @@
 // };
 
 // export default PostsWidget;
+
+
+
+
+// import React, { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { setPosts } from "state"; // Adjust the import path as needed
+// import PostWidget from "./PostWidget";
+
+// const PostsWidget = ({ userId, isProfile = false }) => {
+//   const dispatch = useDispatch();
+//   const posts = useSelector((state) => state.auth.posts); // Adjust the selector based on your store structure
+//   const token = useSelector((state) => state.auth.token); // Adjust the selector based on your store structure
+//   const { _id } = useSelector((state) => state.user);
+//   const fetchPosts = async (url) => {
+//     const response = await fetch(url, {
+//       method: "GET",
+//       headers: { Authorization: `Bearer ${token}` },
+//     });
+//     const data = await response.json();
+//     dispatch(setPosts({ posts: data }));
+//   };
+
+//   useEffect(() => {
+//     const url = isProfile
+//       ? `http://localhost:3000/posts/${userId}/posts`
+//       : "http://localhost:3000/posts";
+
+//     fetchPosts(url);
+//   }, [isProfile, _id, token]); // Include isProfile, userId, and token in dependencies
+
+//   return (
+//     <>
+//       {posts.map((post) => (
+//         <PostWidget
+//           key={post._id}
+//         //   title={post.title}
+//           body={post.body}
+//         //   photo={post.photo}
+//           postedBy={post.postedBy}
+//         />
+//       ))}
+//     </>
+//   );
+// };
+
+// export default PostsWidget;
+
+
+
+// import React, { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// // import { setPosts } from "state"; // Adjust the import path as needed
+// import PostWidget from "./PostWidget";
+// import { setPosts } from "state/index.js";
+
+// const PostsWidget = ({ userId, isProfile = false }) => {
+
+//   const dispatch = useDispatch();
+//   const posts = useSelector((setPosts) => setPosts.auth.posts); // Adjust the selector based on your store structure
+//   const token = useSelector((state) => state.auth.token); // Adjust the selector based on your store structure
+//   const { _id } = useSelector((state) => state.user);
+
+//   const fetchPosts = async (url) => {
+//     const response = await fetch(url, {
+//       method: "GET",
+//       headers: { Authorization: `Bearer ${token}` },
+//     });
+//     const data = await response.json();
+//     console.log("Fetched Posts:", data); // Debug: Log fetched data
+//     dispatch(setPosts({ posts: data }));
+//   };
+
+//   useEffect(() => {
+//     const url = isProfile
+//       ? `http://localhost:3000/posts/${_id}/posts`
+//       : "http://localhost:3000/posts";
+
+//     fetchPosts(url);
+//   }, [isProfile, _id, token]);
+
+//   console.log("Posts in Component:", data); // Debug: Log posts in component
+
+//   return (
+//     <>
+//       {posts.map((post) => (
+//         <PostWidget
+//         //   key={post._id}
+//           body={post.body}
+//           postedBy={post.postedBy}
+//         />
+//       ))}
+//     </>
+//   );
+// };
+
+// export default PostsWidget;
+
+
+import React, { useEffect, useState } from "react";
+import PostWidget from "./PostWidget";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+const PostsWidget = ({ userId, isProfile = false }) => {
+  const [posts, setPosts] = useState([]);
+  const token = useSelector((state) => state.token)
+  
+  const [user, setUser] = useState({ _id: "" });
+
+  const fetchPosts = async (url) => {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await response.json();
+    console.log("Fetched Posts:", data);
+    setPosts(data);
+  };
+
+  useEffect(() => {
+    // Fetch user, token, and posts here
+    const url = isProfile
+      ? `http://localhost:3000/posts/${user._id}/posts`
+      : "http://localhost:3000/posts";
+
+    fetchPosts(url);
+  }, [isProfile, user._id, token]);
+
+  return (
+    // <>
+    //   {posts.map((post) => 
+    //     {
+    //         return(
+    //     <PostWidget key={post._id} body={post.body} postedBy={post.postedBy} />
+    //         )
+    //     }
+    //   )}
+    // </>
+
+
+    <>
+    {Array.isArray(posts) ? (
+      posts.map((post) => (
+        <PostWidget key={post._id} body={post.body} postedBy={post.postedBy} />
+      ))
+    ) : (
+      <p>No posts available.</p>
+    )}
+  </>
+  );
+};
+
+export default PostsWidget;

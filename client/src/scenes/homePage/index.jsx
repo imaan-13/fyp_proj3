@@ -32,8 +32,8 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
            <MyPostWidget picturePath={picturePath} />
-          {/* <PostsWidget userId={_id} />  */}
-
+          <PostsWidget/> 
+ {/* <PostsWidget />  */}
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">

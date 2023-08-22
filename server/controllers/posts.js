@@ -116,7 +116,7 @@ import { verifyToken,  } from "../middleware/auth.js";
  export const getFeedPosts = async (req, res) => {
   
       const post = await Post.find()
-      .populate("postedBy","_id","firstName","lastName")
+      // .populate("postedBy")
       .then(posts=>{
         res.json(posts)
       })

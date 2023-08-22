@@ -13,20 +13,17 @@
 //   import { setPost } from "state";
   
 //   const PostWidget = ({
-//     postId,
-//     postUserId,
-//     name,
-//     description,
-//     location,
-//     picturePath,
-//     userPicturePath,
-//     likes,
-//     comments,
+//     title,
+//     body,
+//     photo,
+//     postedBy,
+
+
 //   }) => {
 //     // const [isComments, setIsComments] = useState(false);
 //     const dispatch = useDispatch();
 //     const token = useSelector((state) => state.token);
-//     const loggedInUserId = useSelector((state) => state.user._id);
+//     // const loggedInUserId = useSelector((state) => state.user._id);
 //     // const isLiked = Boolean(likes[loggedInUserId]);
 //     // const likeCount = Object.keys(likes).length;
   
@@ -111,3 +108,46 @@
   
 //   export default PostWidget;
   
+
+
+import React from "react";
+import { Box, Divider, Typography } from "@mui/material";
+import WidgetWrapper from "components/WidgetWrapper";
+
+const PostWidget = ({
+//   title,
+  body,
+//   photo,
+  postedBy,
+}) => {
+  return (
+    <WidgetWrapper m="2rem 0">
+      {/* {title && (
+        <Typography variant="h6" color="text.primary" sx={{ mt: "1rem" }}>
+          {title}
+        </Typography>
+      )} */}
+      {body && (
+        <Typography color="text.primary" sx={{ mt: "1rem" }}>
+          {body}
+        </Typography>
+      )}
+      {/* {photo && (
+        <img
+          width="100%"
+          height="auto"
+          alt="post"
+          style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
+          src={`http://localhost:3000/assets/${photo}`}
+        />
+      )} */}
+      {postedBy && (
+        <Typography variant="caption" color="text.secondary" sx={{ mt: "1rem" }}>
+          Posted by: {postedBy}
+        </Typography>
+      )}
+    </WidgetWrapper>
+  );
+};
+
+export default PostWidget;
