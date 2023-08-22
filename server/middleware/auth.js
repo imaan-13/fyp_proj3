@@ -1,4 +1,6 @@
+import { PlaylistAddOutlined } from "@mui/icons-material";
 import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
 export const verifyToken = async (req, res, next) => {
   try {
@@ -15,7 +17,12 @@ export const verifyToken = async (req, res, next) => {
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     req.user = verified;
 
-    next();
+    const {_id}=verified
+    User.findById(_id).then(userdate=>{
+      req.user=userdate
+      next();
+    })
+    // next();
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
