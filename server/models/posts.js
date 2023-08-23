@@ -56,17 +56,20 @@ body:{
   required:true
 },
 
-// photo:{
-//   type:String,
-//   default:"no photo"
-// },
+photo:{
+  type:String,
+  // default:"no photo"
+},
 postedBy:{
   
   type:ObjectId,
   ref:"user"
   
-}
+},
 
+name:{
+  type:String
+}
 
 
 })

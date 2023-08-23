@@ -133,7 +133,7 @@ import { verifyToken,  } from "../middleware/auth.js";
 
 export const createPost = async (req, res) => {
   
-    const { postedBy,body}=req.body;
+    const { postedBy,body,photo}=req.body;
     // const { id } = req.params;
     // console.log(id);
     // const user = await User.findById(id);
@@ -146,7 +146,8 @@ export const createPost = async (req, res) => {
 
     const post=new Post({
       body,
-      postedBy
+      postedBy,
+      photo
     })
 
     post.save().then(result=>{
