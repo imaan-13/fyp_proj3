@@ -233,6 +233,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     const data = await response.json();
     console.log("Fetched Posts:", data);
     setPosts(data);
+  
   };
 
   useEffect(() => {
@@ -259,13 +260,17 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     <>
     {Array.isArray(posts) ? (
       posts.map((post) => (
-        <PostWidget key={post._id} body={post.body} postedBy={post.postedBy} />
+        <PostWidget key={post._id} body={post.body} photo={post.photo} postedBy={post.postedBy} name={post.postedBy.firstName}/>
+        
       ))
     ) : (
       <p>No posts available.</p>
     )}
+   
   </>
+  
   );
+
 };
 
 export default PostsWidget;

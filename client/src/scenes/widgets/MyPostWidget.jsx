@@ -196,12 +196,15 @@ import WidgetWrapper from "components/WidgetWrapper";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import UserImage from "components/UserImage";
+import { upload } from "@testing-library/user-event/dist/upload";
 
 
 const MyPostWidget = ({picturePath}) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [image, setImage] = useState(null);
+  const [url,setUrl]=useState("");
+  let imageUrl="";
   // const { _id } = useSelector((state) => state.user);
   const { palette } = useTheme();
       const { _id } = useSelector((state) => state.user);
@@ -218,27 +221,59 @@ const MyPostWidget = ({picturePath}) => {
     setBody(event.target.value);
   };
 
-  const handleImageChange = (event) => {
+  const handleImageChange =  (event) => {
     setImage(event.target.files[0]);
+    
+
+      
   };
 
-  const handlePostSubmit = async () => {
-    // const formData = new FormData();
-    // // formData.append("title", title);
-    // formData.append("body", body);
-    // formData.append("postedBy",_id);
 
+
+
+  const handlePostSubmit = async (event) => {
+ 
+    console.log(_id);
+    
     const dataToSend = {
       title: title, // Make sure 'title' contains the actual value
       body: body,
       postedBy:(_id), // Make sure '_id' contains the actual value
+      
+      
     };
-    console.log(_id);
-    // if (image) {
-    //   formData.append("photo", image);
-    // }
-
+    const Data = new FormData();
+      Data.append("file", image);
+      Data.append("upload_preset", "event-app");
+      Data.append("cloud_name", "event-cloud");
+    
+      try {
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/event-cloud/image/upload",
+          {
+            method: "POST",
+            body: Data,
+          }
+        );
+    
+        if (response.ok) {
+          const cloudinaryData =  await response.json();
+          if (cloudinaryData.secure_url) {
+            setUrl(cloudinaryData.secure_url);
+            dataToSend.photo=cloudinaryData.secure_url;
+            console.log("Image uploaded and URL set:", cloudinaryData.secure_url);
+          } else {
+            console.error("Error uploading image or secure_url is missing.");
+          }
+        } else {
+          console.error("Error uploading image to Cloudinary");
+        }
+      } catch (error) {
+        console.error("An error occurred while uploading image:", error);
+      }
+    console.log("handle image trig");
     try {
+
       const response = await fetch("http://localhost:3000/posts", {
         method: "POST",
         headers: {
@@ -246,6 +281,7 @@ const MyPostWidget = ({picturePath}) => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(dataToSend) ,
+     
       });
 
       if (response.ok) {
@@ -253,13 +289,17 @@ const MyPostWidget = ({picturePath}) => {
         // Optionally, you can reset the form fields here
         setTitle("");
         setBody("");
-        setImage(null);
+        setImage("");
+        setUrl("");
+       
       } else {
         console.error("Error creating post");
       }
     } catch (error) {
       console.error("An error occurred:", error);
     }
+ 
+   
   };
 
   return (
@@ -307,7 +347,7 @@ const MyPostWidget = ({picturePath}) => {
       
       <FlexBetween >
     
-      <Typography color={mediumMain}><input type="file" onChange={handleImageChange}/></Typography>
+      <Typography color={mediumMain}><input type="file" onChange={handleImageChange} /></Typography>
       
       <br></br>
       </FlexBetween>

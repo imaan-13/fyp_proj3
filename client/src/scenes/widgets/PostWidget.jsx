@@ -117,30 +117,31 @@ import WidgetWrapper from "components/WidgetWrapper";
 const PostWidget = ({
 //   title,
   body,
-//   photo,
+  photo,
   postedBy,
+  name
 }) => {
   return (
     <WidgetWrapper m="2rem 0">
-      {/* {title && (
+      {name && (
         <Typography variant="h6" color="text.primary" sx={{ mt: "1rem" }}>
-          {title}
+          {name}
         </Typography>
-      )} */}
+      )}
       {body && (
         <Typography color="text.primary" sx={{ mt: "1rem" }}>
           {body}
         </Typography>
       )}
-      {/* {photo && (
+      {photo && (
         <img
           width="100%"
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:3000/assets/${photo}`}
+          src={photo}
         />
-      )} */}
+      )}
       {postedBy && (
         <Typography variant="caption" color="text.secondary" sx={{ mt: "1rem" }}>
           Posted by: {postedBy}
