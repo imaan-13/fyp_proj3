@@ -24,6 +24,8 @@ import Event from "./models/Events.js";
 import router from "./routes/event.js";
 import { submitFormData } from "./controllers/event.js";
 import {users,posts} from './data/index.js'
+
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config();
@@ -36,6 +38,16 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
+
+
+import {v2 as cloudinary} from 'cloudinary';
+          
+cloudinary.config({ 
+  cloud_name: 'event-cloud', 
+  api_key: '357864655947295', 
+  api_secret:'2IXMS3-rLSmKudQvvTFfLU8c5SU' 
+});
+
 
 
 /* FILE STORAGE */

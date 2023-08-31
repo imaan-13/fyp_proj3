@@ -219,10 +219,11 @@
 import React, { useEffect, useState } from "react";
 import PostWidget from "./PostWidget";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-const PostsWidget = ({ userId, isProfile = false }) => {
+const PostsWidget = ({ isProfile = false }) => {
   const [posts, setPosts] = useState([]);
   const token = useSelector((state) => state.token)
-  
+const { _id, picturePath,firstName,lastName } = useSelector((state) => state.user);
+ 
   const [user, setUser] = useState({ _id: "" });
 
   const fetchPosts = async (url) => {
@@ -245,28 +246,68 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     fetchPosts(url);
   }, [isProfile, user._id, token]);
 
+  // const fetchUserPosted=async()=>{
+  //   const userResponse = await fetch(`http://localhost:3000/users/${userId}`);
+  //   const userData = await userResponse.json();
+  //   return userData;
+  // }
+
+  // const fetchUserPosted = async (userId) => {
+  //   const userResponse = await fetch(`http://localhost:3000/users/${userId}`);
+  //   const userData = await userResponse.json();
+  //   return userData;
+  // };
+
+
+  // useEffect(() => {
+  //   // Fetch user data for each post and update the posts with user data
+  //   const fetchUserForPosts = async () => {
+  //     const updatedPosts = await Promise.all(
+  //       posts.map(async (post) => {
+  //         const userData = await fetchUserPosted(post.postedBy);
+  //         return {
+  //           ...post,
+  //           postedByName: userData.name,
+  //           postedByPhoto: userData.photo,
+  //         };
+  //       })
+  //     );
+  //     setPosts(updatedPosts);
+  //   };
+
+  //   // fetchUserForPosts(user._id);
+  // }, [posts]);
   return (
-    // <>
-    //   {posts.map((post) => 
-    //     {
-    //         return(
-    //     <PostWidget key={post._id} body={post.body} postedBy={post.postedBy} />
-    //         )
-    //     }
-    //   )}
-    // </>
 
 
     <>
-    {Array.isArray(posts) ? (
+    {/* {Array.isArray(posts) ? (
+    
       posts.map((post) => (
-        <PostWidget key={post._id} body={post.body} photo={post.photo} postedBy={post.postedBy} name={post.postedBy.firstName}/>
+        
+        <PostWidget key={post._id} body={post.body} photo={post.photo} postedBy={post.postedBy} />
         
       ))
     ) : (
       <p>No posts available.</p>
-    )}
-   
+
+    )} */}
+    {Array.isArray(posts) ? (
+        posts.map((post) => (
+          <PostWidget
+            postId={post._id}
+            body={post.body}
+            photo={post.photo}
+            postedBy={post.postedBy}
+            // firstName={user._id.firstName}
+            userPhoto={picturePath}
+            userName={firstName+" " +lastName}
+          />
+        ))
+       
+      ) : (
+        <p>No posts available.</p>
+      )}
   </>
   
   );

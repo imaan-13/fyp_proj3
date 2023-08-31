@@ -45,6 +45,9 @@ const UserSchema = new mongoose.Schema(
     occupation: String,
     viewedProfile: Number,
     impressions: Number,
+    // likedPosts:{type:Array,
+    //   default:[],
+    // },
   },
   { timestamps: true }
 

@@ -262,6 +262,7 @@ const MyPostWidget = ({picturePath}) => {
             setUrl(cloudinaryData.secure_url);
             dataToSend.photo=cloudinaryData.secure_url;
             console.log("Image uploaded and URL set:", cloudinaryData.secure_url);
+            window.location.reload();
           } else {
             console.error("Error uploading image or secure_url is missing.");
           }

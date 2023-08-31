@@ -133,7 +133,7 @@ import { verifyToken,  } from "../middleware/auth.js";
 
 export const createPost = async (req, res) => {
   
-    const { postedBy,body,photo}=req.body;
+    const { postedBy,body,photo,userPhoto}=req.body;
     // const { id } = req.params;
     // console.log(id);
     // const user = await User.findById(id);
@@ -147,7 +147,8 @@ export const createPost = async (req, res) => {
     const post=new Post({
       body,
       postedBy,
-      photo
+      photo,
+      userPhoto
     })
 
     post.save().then(result=>{
@@ -170,3 +171,116 @@ export const createPost = async (req, res) => {
         console.log(err)
       })
     };
+
+  //  export const likesPost=async (req,res) =>{
+  //   Post.findByIdAndUpdate(req.body.postId,{
+  //     $push:{likes:req.user}
+  //   },{
+  //     new:true
+  //   }).exec((err,result)=>{
+  //       if(err){
+  //         return res.status(422).json({error:err})
+  //       }
+  //       else{
+  //         res.json(result)
+  //       }
+  //   })
+  //  }
+
+  // export const likesPost = async (req, res) => {
+  //   try {
+  //     // console.log("req.body.userId:", r);
+  //     const {userId}=req.body
+  //     const result = await Post.findByIdAndUpdate(
+  //       req.body.postId,
+  //       {
+  //         $push: { likes: userId},
+  //       },
+  //       {
+  //         new: true,
+  //       }
+  //     ).exec();
+      
+  //     res.json(result);
+  //   } catch (err) {
+  //     res.status(422).json({ error: err });
+  //   }
+  // };
+  // export consts getlikes=async(req,res)=>{
+  //   try{
+  //     const{postId}=req.body;
+
+  //   }
+  // }
+  
+  export const likesPost = async (req, res) => {
+    try {
+      const { postId, userId } = req.body;
+  
+      const post = await Post.findById(postId);
+  
+      if (!post) {
+        return res.status(404).json({ error: 'Post not found' });
+      }
+  
+      const userLikedIndex = post.likes.findIndex(likedUserId => likedUserId.toString() === userId);
+  
+      if (userLikedIndex === -1) {
+        // User hasn't liked the post, add user to likes array
+        post.likes.push(userId);
+        // res.json({likes});
+      } else {
+        // User has liked the post, remove user from likes array
+        post.likes.splice(userLikedIndex, 1);
+        // res.json({likes});
+      }
+  
+      const result = await post.save();
+  
+      res.json(result);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  };
+  
+
+  export const postLikes = async (req,res)=>{
+
+ 
+
+    // const post = await Post.findById(postId);
+    // const postId = req.params.id;
+    const { id } = req.params;
+    try {
+      // const {postId}=req.body;
+      const post = await Post.findById(id);
+  
+      if (!post) {
+        return res.status(404).json({ error: 'Post not found' });
+      }
+  
+      // Retrieve the likes from the post object and send them in the response
+      const likes = post.likes;
+      res.json({ likes });
+
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+
+  //  export const unlikesPost=async (req,res) =>{
+  //   Post.findByIdAndUpdate(req.body.postId,{
+  //     $pull:{likes:req.user._id}
+  //   },{
+  //     new:true
+  //   }).exec((err,result)=>{
+  //       if(err){
+  //         return res.status(422).json({error:err})
+  //       }
+  //       else{
+  //         res.json(result)
+  //       }
+  //   })
+  //  }
+
+    

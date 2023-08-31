@@ -69,8 +69,19 @@ postedBy:{
 
 name:{
   type:String
-}
+},
 
+userPhoto:{
+  type:String
+
+}
+,
+
+// likes:[{type:ObjectId, ref:"user"}]
+likes:{
+  type:Array,
+  default:[]
+}
 
 })
 
