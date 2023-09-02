@@ -3,6 +3,7 @@ import Navbar from "scenes/navbar";
 import UserWidget from "scenes/widgets/UserWidget";
 // import MyPostWidget from "scenes/widgets/MyPostWidget";
 import { Box, useMediaQuery } from "@mui/material";
+import PostsWidget from "scenes/widgets/PostsWidget";
 import { useSelector } from "react-redux";
 const SocialPage =()=>{
   
@@ -30,6 +31,7 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
           {/* <MyPostWidget picturePath={picturePath} /> */}
           {/* <PostsWidget userId={_id} /> */}
             <h3>SOCIAL COMMUNITY</h3>
+            <PostsWidget community={"Social"} isCommunity={true} />
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">

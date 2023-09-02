@@ -180,7 +180,7 @@ import {
       useTheme,
       Button,
       IconButton,
-      useMediaQuery,
+      useMediaQuery,MenuItem,Select
     } from "@mui/material";
   import {
     EditOutlined,
@@ -190,6 +190,7 @@ import {
     ImageOutlined,
     MicOutlined,
     MoreHorizOutlined,
+    Height,
   } from "@mui/icons-material";
   import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -213,6 +214,16 @@ const MyPostWidget = ({picturePath}) => {
       const mediumMain = palette.neutral.mediumMain;
       const medium = palette.neutral.medium;
 
+
+      const dropdownOptions = [
+        { label: 'Education', value: 'Education' },
+        { label: 'Arts & Culture', value: 'Arts & Culture' },
+        { label: 'Social', value: 'Social' },
+        // ... add more options as needed
+      ];
+      const [selectedOption, setSelectedOption] = useState('');
+      
+
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
@@ -228,7 +239,9 @@ const MyPostWidget = ({picturePath}) => {
       
   };
 
-
+    const handleCommunityChange= (event)=>{
+  setSelectedOption(event.target.value);
+  };
 
 
   const handlePostSubmit = async (event) => {
@@ -239,7 +252,7 @@ const MyPostWidget = ({picturePath}) => {
       title: title, // Make sure 'title' contains the actual value
       body: body,
       postedBy:(_id), // Make sure '_id' contains the actual value
-      
+      community:selectedOption,
       
     };
     const Data = new FormData();
@@ -292,6 +305,7 @@ const MyPostWidget = ({picturePath}) => {
         setBody("");
         setImage("");
         setUrl("");
+        setSelectedOption("");
        
       } else {
         console.error("Error creating post");
@@ -347,10 +361,43 @@ const MyPostWidget = ({picturePath}) => {
       
       
       <FlexBetween >
-    
+     
+      
       <Typography color={mediumMain}><input type="file" onChange={handleImageChange} /></Typography>
       
       <br></br>
+      <Typography>Select community</Typography>
+      <Select
+        value={selectedOption}
+        onChange={handleCommunityChange}
+        MenuProps={{
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'left',
+          },
+          transformOrigin: {
+            vertical: 'top',
+            horizontal: 'left',
+          },
+        
+          getContentAnchorEl: null, // Adjusts the positioning of the menu
+        }}
+        sx={{
+          width: '100%',
+          backgroundColor: palette.neutral.light,
+          borderRadius: '0.5rem',
+          padding: '0rem 1.5rem',
+          margin:'0.5rem'
+        }}
+      >
+        <MenuItem value="">Select an option</MenuItem>
+        {dropdownOptions.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </Select>
+
       </FlexBetween>
      
 {/*       

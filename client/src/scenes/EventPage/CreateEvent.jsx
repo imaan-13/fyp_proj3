@@ -268,6 +268,17 @@
   import FlexBetween from "components/FlexBetween";
 import { Box,useTheme,useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
+import WidgetWrapper from "components/WidgetWrapper";
+import {
+  
+  Divider,
+  Typography,
+  InputBase,
+  
+  Button,
+  IconButton,
+  MenuItem,Select
+} from "@mui/material";
 
 const  CreateEventForm = () => {
   const { palette } = useTheme();
@@ -319,6 +330,8 @@ const  CreateEventForm = () => {
  
 
   return (
+
+    <WidgetWrapper>
     <div>
       <h2>Create Event Page</h2>
       <Box
@@ -381,7 +394,7 @@ const  CreateEventForm = () => {
         </label>
         </Box>
         <br />
-        <button type="submit"  
+        {/* <button type="submit"  
                 fullWidth
                 sx={{
                   m: "2rem 0",
@@ -390,11 +403,24 @@ const  CreateEventForm = () => {
                   color: palette.background.alt,
                   "&:hover": { color: palette.primary.main },
                   
-                }}>Submit</button>
+                }}>Submit</button> */}
+
+
+      <Button
+          type="submit"
+            sx={{
+              color: palette.background.alt,
+              backgroundColor: palette.primary.main,
+              borderRadius: "3rem",
+            }}
+          >
+            POST
+          </Button>
       </form>
       </FlexBetween>
       </Box>
     </div>
+    </WidgetWrapper>
   );
 };
 

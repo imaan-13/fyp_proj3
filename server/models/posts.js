@@ -63,7 +63,7 @@ photo:{
 postedBy:{
   
   type:ObjectId,
-  ref:"user"
+  ref:"User"
   
 },
 
@@ -82,6 +82,12 @@ likes:{
   type:Array,
   default:[]
 }
+,
+community:{
+  type:String,
+  // required:true
+}
+
 
 })
 

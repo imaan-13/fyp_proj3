@@ -131,14 +131,41 @@ import { verifyToken,  } from "../middleware/auth.js";
   //   next()
   // })
 
-export const createPost = async (req, res) => {
+// export const createPost = async (req, res) => {
   
-    const { postedBy,body,photo,userPhoto}=req.body;
-    // const { id } = req.params;
-    // console.log(id);
-    // const user = await User.findById(id);
+//     const { postedBy,body,photo,userPhoto,community}=req.body;
+//     // const { id } = req.params;
+//     // console.log(id);
+//     // const user = await User.findById(id);
 
-    if(!body){
+//     if(!body){
+//       return res.status(422).json({error:"Please add text fields"})
+
+//     }
+//     // req.User.password=undefined;
+
+//     const post=new Post({
+//       body,
+//       postedBy,
+//       photo,
+//       userPhoto,
+//       community,
+//     })
+
+//     post.save().then(result=>{
+//       res.json({post:result})
+//     })
+//     .catch(err=>{
+//       console.log(err)
+//     })
+//   };
+
+  export const createPost = async (req, res) => {
+  
+    const { body,photo,community,postedBy}=req.body;
+ 
+    const postuser=await User.findById(postedBy)
+    if(!body&&!community){
       return res.status(422).json({error:"Please add text fields"})
 
     }
@@ -146,14 +173,24 @@ export const createPost = async (req, res) => {
 
     const post=new Post({
       body,
-      postedBy,
+      postedBy:postuser,
       photo,
-      userPhoto
+      userPhoto:postuser.picturePath,
+      name:postuser.firstName+" "+postuser.lastName,
+      community,
     })
 
-    post.save().then(result=>{
-      res.json({post:result})
-    })
+    post.save().then(  result=>{
+     
+     
+
+         res.json({
+            post:result
+         });
+    
+
+
+  })
     .catch(err=>{
       console.log(err)
     })
@@ -161,57 +198,39 @@ export const createPost = async (req, res) => {
 
  
 
+  // export const getUserPosts = async (req, res) => {
+
+  //   // const postuser=await User.findById(postedBy);
+  //   console.log(req.params.userId);
+  //    const mypost=await Post.find(
+  //     {postedBy:req.params.userId})
+     
+  //     .populate("postedBy","_id name" )
+  //     .then(mypost=>{
+  //       res.json({mypost})
+  //     })
+  //     .catch(err=>{
+  //       console.log(err)
+  //     })
+  //   };
+
+
   export const getUserPosts = async (req, res) => {
-      Post.find({postedBy:req.user._id})
-      .populate("postedBy","_id name" )
-      .then(mypost=>{
-        res.json({mypost})
-      })
-      .catch(err=>{
-        console.log(err)
-      })
-    };
+    try {
+      const { userId } = req.params;
 
-  //  export const likesPost=async (req,res) =>{
-  //   Post.findByIdAndUpdate(req.body.postId,{
-  //     $push:{likes:req.user}
-  //   },{
-  //     new:true
-  //   }).exec((err,result)=>{
-  //       if(err){
-  //         return res.status(422).json({error:err})
-  //       }
-  //       else{
-  //         res.json(result)
-  //       }
-  //   })
-  //  }
-
-  // export const likesPost = async (req, res) => {
-  //   try {
-  //     // console.log("req.body.userId:", r);
-  //     const {userId}=req.body
-  //     const result = await Post.findByIdAndUpdate(
-  //       req.body.postId,
-  //       {
-  //         $push: { likes: userId},
-  //       },
-  //       {
-  //         new: true,
-  //       }
-  //     ).exec();
-      
-  //     res.json(result);
-  //   } catch (err) {
-  //     res.status(422).json({ error: err });
-  //   }
-  // };
-  // export consts getlikes=async(req,res)=>{
-  //   try{
-  //     const{postId}=req.body;
-
-  //   }
-  // }
+      const posts = await Post.find({
+        postedBy: userId
+      });
+  
+      res.json( posts );
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+  
+  
   
   export const likesPost = async (req, res) => {
     try {
@@ -282,5 +301,35 @@ export const createPost = async (req, res) => {
   //       }
   //   })
   //  }
+ 
+  export const communityPost = async (req, res) => {
+    try {
+      const { community } = req.body;
+  
+      // Find posts that match the specified "community" value
+      const posts = await Post.find({ community });
+  
+      res.json(posts);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+  
+  
 
-    
+  // export const communityPost = async (req, res) => {
+  //   try {
+  //     const specificCommunity = "Education";
+      
+  //     const posts = await Post.aggregate([
+  //       { $match: { community: specificCommunity } }
+  //     ]);
+  
+  //     res.json(posts);
+  //   } catch (err) {
+  //     console.log(err);
+  //     res.status(500).json({ error: 'Internal server error' });
+  //   }
+  // };
+  

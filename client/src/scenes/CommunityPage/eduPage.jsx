@@ -2,6 +2,7 @@
 import Navbar from "scenes/navbar";
 import UserWidget from "scenes/widgets/UserWidget";
 // import MyPostWidget from "scenes/widgets/MyPostWidget";
+import PostsWidget from "scenes/widgets/PostsWidget";
 import { Box, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
 const Edupage =()=>{
@@ -28,8 +29,9 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
           {/* <MyPostWidget picturePath={picturePath} /> */}
-          {/* <PostsWidget userId={_id} /> */}
-            <h3>EDUCATION COMMUNITY</h3>
+          <h3>EDUCATION COMMUNITY</h3>
+          <PostsWidget community={"Education"} isCommunity={true} />
+         
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">

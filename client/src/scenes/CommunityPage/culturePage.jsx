@@ -2,6 +2,7 @@
 import Navbar from "scenes/navbar";
 import UserWidget from "scenes/widgets/UserWidget";
 // import MyPostWidget from "scenes/widgets/MyPostWidget";
+import PostsWidget from "scenes/widgets/PostsWidget";
 import { Box, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
 const CulturePage =()=>{
@@ -9,6 +10,7 @@ const CulturePage =()=>{
 
 const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const { _id, picturePath } = useSelector((state) => state.user);
+
 
   return (
     <Box>
@@ -27,9 +29,10 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-          {/* <MyPostWidget picturePath={picturePath} /> */}
-          {/* <PostsWidget userId={_id} /> */}
-            <h3>ARTS&CULTURE COMMUNITY</h3>
+          
+          <h3>ARTS&CULTURE COMMUNITY</h3>
+          <PostsWidget isCommunity={true} community="Arts & Culture" />
+         
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">
