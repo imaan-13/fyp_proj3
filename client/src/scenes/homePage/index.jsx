@@ -5,6 +5,9 @@ import MyPostWidget from "scenes/widgets/MyPostWidget";
 // import PostWidget from "scenes/widgets/PostWidget";
 import PostsWidget from "scenes/widgets/PostsWidget";
 import FriendListWidget from "scenes/widgets/FriendListWidget";
+import EventPostsWidget from "scenes/widgets/EventPostsWidget";
+import Navbar2 from "scenes/navbar/newsFeedNav";
+import NavbarWithProps from "scenes/navbar/communityNewsFeed";
 import { Box, useMediaQuery } from "@mui/material";
 
 import { useSelector } from "react-redux";
@@ -32,7 +35,10 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
            <MyPostWidget picturePath={picturePath} />
+           {/* <Navbar2 isMain={true}/> */}
+           <NavbarWithProps isMain={true}></NavbarWithProps>
           <PostsWidget isProfile={false}/> 
+          <EventPostsWidget isProfile={false}></EventPostsWidget>
  {/* <PostsWidget />  */}
         </Box>
         {isNonMobileScreens && (

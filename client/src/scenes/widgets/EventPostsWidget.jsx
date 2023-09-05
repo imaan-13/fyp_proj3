@@ -2,7 +2,9 @@
 import React, { useEffect, useState } from "react";
 import PostWidget from "./PostWidget";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-const PostsWidget = ({ isProfile, isCommunity,community}) => {
+import EventPostWidget from "./EventPostWidget";
+
+const EventPostsWidget = ({ isProfile, isCommunity,community,getSaved}) => {
   const [posts, setPosts] = useState([]);
   const token = useSelector((state) => state.token)
 const { _id, picturePath,firstName,lastName } = useSelector((state) => state.user);
@@ -37,30 +39,51 @@ const { _id, picturePath,firstName,lastName } = useSelector((state) => state.use
   setPosts(data);
  }
 
+ const fetchSavedPosts = async () => {
+  setPosts([]);
+  console.log("some id",_id)
+  try {
+    const response = await fetch("http://localhost:3000/event/saved-posts", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: _id }), // Send the user's ID or other relevant data
+    });
 
- 
+    if (response.ok) {
+      const data = await response.json();
+      setPosts(data);
+    } else {
+      // Handle error cases if needed
+    }
+  } catch (error) {
+    // Handle fetch error
+    console.error("Error fetching saved posts: ", error);
+  }
+};
+
 
   useEffect(() => {
     // Fetch user, token, and posts here
-    if (!isCommunity&&!isProfile) {
+    if (isCommunity) {
       // const communityUrl = `http://localhost:3000/posts/${community}`;
       // fetchPosts(communityUrl);
-      const normalUrl = "http://localhost:3000/posts";
-      fetchPosts(normalUrl);
+      
+      const commurl=`http://localhost:3000/event/community`;
+      fetchCommunityPosts(commurl,community);
+    }else if(getSaved){
+
+      fetchSavedPosts()
     }
-    else if (isProfile) {
-      const profileUrl = `http://localhost:3000/posts/${_id}/posts`;
-      fetchPosts(profileUrl);
-    } 
+    
     
     else{
-      // const normalUrl = "http://localhost:3000/posts";
-      // fetchPosts(normalUrl);
-      const communityUrl = `http://localhost:3000/posts/community`;
-      // fetchPosts(communityUrl);
-      console.log("communitu",community);
-      fetchCommunityPosts(communityUrl,community);
+      const normalUrl = "http://localhost:3000/event";
+      fetchPosts(normalUrl);
     }
+ 
   }, [isProfile, isCommunity, _id, token, community]);
   
 
@@ -75,12 +98,18 @@ const { _id, picturePath,firstName,lastName } = useSelector((state) => state.use
    
     {Array.isArray(posts) ? (
         posts.map((post) => (
-          <PostWidget
+          <EventPostWidget
             postId={post._id}
-            body={post.body}
-            photo={post.photo}
+            eventName={post.eventName}
+            // photo={post.photo}
             // postedBy={post.postedBy}
             // firstName={user._id.firstName}
+            date={post.startDate}
+            time={post.startTime}
+            location={post.locationType}
+            details={post.details}
+            contact={post.contact}
+            community={post.community}
             userPhoto={post.userPhoto}
             userName={post.name}
             // community={post.community}
@@ -96,4 +125,4 @@ const { _id, picturePath,firstName,lastName } = useSelector((state) => state.use
 
 };
 
-export default PostsWidget;
+export default EventPostsWidget;

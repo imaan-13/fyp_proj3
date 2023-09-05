@@ -1,23 +1,21 @@
 
 import Navbar from "scenes/navbar";
 import UserWidget from "scenes/widgets/UserWidget";
-// import MyPostWidget from "scenes/widgets/MyPostWidget";
+import MyPostWidget from "scenes/widgets/MyPostWidget";
+// import PostWidget from "scenes/widgets/PostWidget";
 import PostsWidget from "scenes/widgets/PostsWidget";
-import { Box, useMediaQuery } from "@mui/material";
-import { useSelector } from "react-redux";
+import FriendListWidget from "scenes/widgets/FriendListWidget";
 import EventPostsWidget from "scenes/widgets/EventPostsWidget";
 import Navbar2 from "scenes/navbar/newsFeedNav";
 import NavbarWithProps from "scenes/navbar/communityNewsFeed";
-import { useRoutes } from "react-router-dom";
-const Edupage =({showEvents})=>{
+import { Box, useMediaQuery } from "@mui/material";
+
+import { useSelector } from "react-redux";
+const EventFeed =()=>{
   
 
 const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const { _id, picturePath } = useSelector((state) => state.user);
-
-
-
-
 
   return (
     <Box>
@@ -36,19 +34,11 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-          {/* <MyPostWidget picturePath={picturePath} /> */}
-          <h3>EDUCATION COMMUNITY</h3>
-          {/* <Navbar2 isCommunity={true}></Navbar2> */}
-          <NavbarWithProps isComm={true} Comm={"Education"}></NavbarWithProps>
-          
-          {/* <PostsWidget community={"Education"} isCommunity={true} /> */}
-         { showEvents &&(
-          <PostsWidget community={"Education"} isCommunity={true}></PostsWidget>
-          
-          )}
-
-         <EventPostsWidget isCommunity={true} community={"Education"}></EventPostsWidget>
-        
+           <MyPostWidget picturePath={picturePath} />
+         <NavbarWithProps isMain={true}></NavbarWithProps>
+          {/* <PostsWidget isProfile={false}/>  */}
+          <EventPostsWidget isProfile={false}></EventPostsWidget>
+ {/* <PostsWidget />  */}
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">
@@ -64,4 +54,4 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
 
 
-export default Edupage;
+export default EventFeed;

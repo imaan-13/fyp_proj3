@@ -1,11 +1,14 @@
 
 import Navbar from "scenes/navbar";
+import Navbar2 from "scenes/navbar/newsFeedNav";
 import UserWidget from "scenes/widgets/UserWidget";
 // import MyPostWidget from "scenes/widgets/MyPostWidget";
+import EventPostsWidget from "scenes/widgets/EventPostsWidget";
 import PostsWidget from "scenes/widgets/PostsWidget";
 import { Box, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
-const CulturePage =()=>{
+import NavbarWithProps from "scenes/navbar/communityNewsFeed";
+const CulturePage =({showEvents})=>{
   
 
 const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -31,8 +34,17 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
         >
           
           <h3>ARTS&CULTURE COMMUNITY</h3>
-          <PostsWidget isCommunity={true} community="Arts & Culture" />
          
+
+          <NavbarWithProps isComm={true} Comm={"Arts & Culture"}></NavbarWithProps>
+          
+          {/* <PostsWidget community={"Education"} isCommunity={true} /> */}
+         { showEvents &&(
+          <PostsWidget community={"Arts & Culture"} isCommunity={true}></PostsWidget>
+          
+          )}
+
+         <EventPostsWidget isCommunity={true} community={"Arts & Culture"}></EventPostsWidget>
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">

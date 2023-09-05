@@ -4,8 +4,10 @@ import UserWidget from "scenes/widgets/UserWidget";
 // import MyPostWidget from "scenes/widgets/MyPostWidget";
 import { Box, useMediaQuery } from "@mui/material";
 import PostsWidget from "scenes/widgets/PostsWidget";
+import EventPostsWidget from "scenes/widgets/EventPostsWidget";
 import { useSelector } from "react-redux";
-const SocialPage =()=>{
+import NavbarWithProps from "scenes/navbar/communityNewsFeed";
+const SocialPage =({showEvents})=>{
   
 
 const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -31,7 +33,15 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
           {/* <MyPostWidget picturePath={picturePath} /> */}
           {/* <PostsWidget userId={_id} /> */}
             <h3>SOCIAL COMMUNITY</h3>
-            <PostsWidget community={"Social"} isCommunity={true} />
+            <NavbarWithProps isComm={true} Comm={"Social"}></NavbarWithProps>
+          
+          {/* <PostsWidget community={"Education"} isCommunity={true} /> */}
+         { showEvents &&(
+          <PostsWidget community={"Social"} isCommunity={true}></PostsWidget>
+          
+          )}
+
+         <EventPostsWidget isCommunity={true} community={"Social"}></EventPostsWidget>
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">

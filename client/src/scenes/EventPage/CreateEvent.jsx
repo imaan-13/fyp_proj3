@@ -1,274 +1,8 @@
-// import {
-//     Box,
-//     Button,
-//     TextField,
-    
-//     useMediaQuery,
-//     Typography,
-//     // useTheme,
-//     FormControlLabel,
-//     Radio,
-//     RadioGroup,
-//   } from "@mui/material";
-//   import { DatePicker } from '@mui/lab';
-//   import { useState } from "react";
-//   import { Formik } from "formik";
-//   import * as yup from "yup";
-// import { createEvent } from "@testing-library/react";
-//   // import Dropzone from "react-dropzone";
-//   // import FlexBetween from "components/FlexBetween";
-//   // import { setEvents } from "state";
-//   // import { Navigate, useNavigate } from "react-router-dom";
-  
-//   const eventSchema = yup.object().shape({
-//     eventName: yup.string().required("Event name is required"),
-//     startDateTime: yup.date().required("Start date is required"),
-//     // startTiming: yup.string().required("Start time is required"),
-//     locationType: yup.string().required("Choose In Person or Virtual"),
-//     details: yup.string().required("Event details are required"),
-//   });
-  
-//   const initialValues = {
-//     eventName: "",
-//     startDateTime: "",
-//     // startTiming: "",
-//     locationType: "", // Default value
-//     details: "",
-//     // eventPicture: null,
-//   };
-  
- 
-//   const CreateEventForm = () => {
- 
-//     // const { palette } = useTheme();
-//     const isNonMobile = useMediaQuery("(min-width:600px)");
-  
-//     const CreateEvent = async (values,onSubmitProps) => {
-
-//       try{
-//       const formData = new FormData();
-//       // for (let value in values) {
-//       //   formData.append(value, values[value]);
-//       // }
-//       // formData.append("eventPicturePath", values.eventPicture?.name || "");
-  
-
-//       // const formData = new FormData();
-
-//       formData.append('eventName', values.eventName);
-//       formData.append('startDateTime', values.startDateTime);
-//       // formData.append('startTiming', values.startTiming);
-//       formData.append('locationType', values.locationType);
-//       formData.append('details', values.details);
-//       const savedUserResponse = await fetch(
-//         "http://localhost:3000/event/api/submit",
-//         {
-//           method: "POST",
-//           // body: formData,
-//           body:formData,
-         
-//           headers: { "Content-Type": "application/json" },
-//         }
-//       );
-//       const savedUser = await savedUserResponse.json();
-//       onSubmitProps.resetForm();
-//       }
-   
-//       catch (error) {
-//         console.error("Error during fetch:", error);
-      
-//       // console.log("Creating event:", events);
-//       // onSubmitProps.resetForm();
-      
-//       // if (savedUser) {
-//       //   // setPageType("home");
-       
-//       //   // setEvents("event-page");
-        
-//       // }
-//       }
-//     };
-  
-//     return (
-//       <Formik
-//         onSubmit={CreateEventForm}
-//         initialValues={initialValues}
-//         validationSchema={eventSchema}
-//       >
-//         {({
-//           values,
-//           errors,
-//           touched,
-//           handleBlur,
-//           handleChange,
-//           handleSubmit,
-//           setFieldValue,
-//           resetForm,
-//         }) => (
-//         <form onSubmit={handleSubmit}>
-//             <h3>Create Event Page</h3>
-     
-//             <Box
-//               display="grid"
-//               gap="30px"
-//               gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-//               sx={{
-//                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-//               }}
-//             >
-              
-//               <TextField
-//                 label="Event Name"
-//                 onBlur={handleBlur}
-//                 onChange={handleChange}
-//                 value={values.eventName}
-//                 name="eventName"
-//                 error={Boolean(touched.eventName) && Boolean(errors.eventName)}
-//                 helperText={touched.eventName && errors.eventName}
-//                 sx={{ gridColumn: "span 4" }}
-//               />
-              
-//               {/* <DatePicker
-
-//                 type="date"
-//                 onBlur={handleBlur}
-//                 onChange={handleChange}
-//                 value={values.startDateTime}
-//                 name="startDateTime"
-//                 error={Boolean(touched.startDate) && Boolean(errors.startDate)}
-//                 helperText={touched.startDate && errors.startDate}
-           
-//                 sx={{ gridColumn: isNonMobile ? "span 2" : "span 4" }}
-
-//                 /> */}
-              
-//               <TextField
-              
-//                 // label="Start Date"
-//                 type="date"
-//                 onBlur={handleBlur}
-//                 onChange={handleChange}
-//                 value={values.startDateTime}
-//                 name="startDateTime"
-//                 error={Boolean(touched.startDateTime) && Boolean(errors.startDateTime)}
-//                 helperText={touched.startDateTime && errors.startDateTime}
-           
-//                 sx={{ gridColumn: isNonMobile ? "span 2" : "span 4" }}
-//                 // alignItems= "flex-start"
-//               />
-               
-//                {/* <label>Start time</label> */}
-//               {/* <TextField
-//                 // label="Start Time"
-//                 type="time"
-//                 onBlur={handleBlur}
-//                 onChange={handleChange}
-//                 value={values.startTiming}
-//                 name="Timing"
-//                 error={Boolean(touched.startTiming) && Boolean(errors.startTiming)}
-//                 helperText={touched.startTiming && errors.startTiming}
-             
-//                 sx={{ gridColumn: isNonMobile ? "span 2" : "span 4" }}
-//               /> */}
-  
-//               <RadioGroup
-//                 row
-//                 aria-label="In Person or Virtual"
-//                 name="locationType"
-//                 value={values.locationType}
-//                 onChange={handleChange}
-//                 sx={{ gridColumn: "span 4" }}
-//               >
-//                 <FormControlLabel
-//                   value="inPerson"
-//                   control={<Radio />}
-//                   label="In Person"
-//                 />
-//                 <FormControlLabel
-//                   value="virtual"
-//                   control={<Radio />}
-//                   label="Virtual"
-//                 />
-//               </RadioGroup>
-              
-//               <TextField
-//                 label="details"
-//                 multiline
-//                 rows={4}
-//                 onBlur={handleBlur}
-//                 onChange={handleChange}
-//                 value={values.details}
-//                 name="details"
-//                 error={Boolean(touched.details) && Boolean(errors.details)}
-//                 helperText={touched.details && errors.details}
-//                 sx={{ gridColumn: "span 4" }}
-//               />
-  
-//               {/* <Box
-//                 gridColumn="span 4"
-//                 border={`1px solid ${palette.neutral.medium}`}
-//                 borderRadius="5px"
-//                 p="1rem"
-//               >
-//                 <Dropzone
-//                   acceptedFiles=".jpg,.jpeg,.png"
-//                   multiple={false}
-//                   onDrop={(acceptedFiles) =>
-//                     setFieldValue("eventPicture", acceptedFiles[0])
-//                   }
-//                 >
-//                   {({ getRootProps, getInputProps }) => (
-//                     <Box
-//                       {...getRootProps()}
-//                       border={`2px dashed ${palette.primary.main}`}
-//                       p="1rem"
-//                       sx={{ "&:hover": { cursor: "pointer" } }}
-//                     >
-//                       <input {...getInputProps()} />
-//                       {!values.eventPicture ? (
-//                         <p>Add Event Picture Here</p>
-//                       ) : (
-//                         <FlexBetween>
-//                           <Typography>{values.eventPicture.name}</Typography>
-//                         </FlexBetween>
-//                       )}
-//                     </Box> */}
-//                   {/* )} */}
-//                 {/* </Dropzone>
-//               </Box> */}
-//             </Box>
-  
-//             {/* BUTTONS */}
-//             <Box>
-//               <Button
-//                 fullWidth
-//                 type="submit"
-//                 sx={{
-//                   m: "2rem 0",
-//                   p: "1rem",
-//                   // backgroundColor: palette.primary.main,
-//                   // color: palette.background.alt,
-//                   // "&:hover": { color: palette.primary.main },
-                  
-//                 }}
-//                 // onclick={()=>Navigate('event')}
-//                 // onclick={createEvent()}
-//               >
-//                 CREATE EVENT
-//               </Button>
-//             </Box>
-//         </form>
-//         )}
-//       </Formik>
-//     );
-//   };
-  
-//   export default CreateEventForm;
-  
-  import FlexBetween from "components/FlexBetween";
+import FlexBetween from "components/FlexBetween";
 import { Box,useTheme,useMediaQuery } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import WidgetWrapper from "components/WidgetWrapper";
+import Address from "components/Address";
 import {
   
   Divider,
@@ -279,24 +13,90 @@ import {
   IconButton,
   MenuItem,Select
 } from "@mui/material";
+import { useSelector } from "react-redux";
+// import { AddressAutofill ,MapboxSearchBox, SearchBox} from "@mapbox/search-js-react";
+// import Map, {
+//   GeolocateControl,
+//   Marker,
+//   NavigationControl,
+// } from 'react-map-gl';
+
+import AddMap from "components/Map";
 
 const  CreateEventForm = () => {
   const { palette } = useTheme();
   const [eventName, setEventName] = useState('');
-  const [startDateTime, setStartDateTime] = useState('');
+  const [startDate, setStartDate] = useState('');
   const [locationType, setLocationType] = useState('');
   const [details, setDetails] = useState('');
+  const [contact, setContact] = useState(''); // New field
+  const[startTime,setStartTime]=useState('');
+  const [image, setImage] = useState(null);
+  const [url,setUrl]=useState("");
+  const { _id } = useSelector((state) => state.user);
+  const [community, setCommunity] = useState(''); // New field
+  const [postedBy, setPostedBy] = useState(''); // New field
   const isNonMobile = useMediaQuery("(min-width:600px)");
+
+  const dropdownOptions = [
+    { label: 'Education', value: 'Education' },
+    { label: 'Arts & Culture', value: 'Arts & Culture' },
+    { label: 'Social', value: 'Social' },
+    // ... add more options as needed
+  ];
+  const [selectedOption, setSelectedOption] = useState('');
+  // const search = new MapboxSearchBox();
+  // search.accessToken = '<your access token here>';
+  // map.addControl(search);
+
+
+
+
   const handleSubmit = async() => {
     // event.preventDefault();
     // You can perform form submission logic here
     const formData = {
-      eventName,
-      startDateTime,
-      locationType,
-      details,
+      eventName:eventName,
+      startDate:startDate,
+      startTime:startTime,
+      locationType:locationType,
+      details:details,
+      contact:contact,
+      community:community,
+      postedBy:(_id),
+      
     };
+    // const Data = new FormData();
+    //   Data.append("file", image);
+    //   Data.append("upload_preset", "event-app");
+    //   Data.append("cloud_name", "event-cloud");
     
+    //   try {
+    //     const response = await fetch(
+    //       "https://api.cloudinary.com/v1_1/event-cloud/image/upload",
+    //       {
+    //         method: "POST",
+    //         body: Data,
+    //       }
+    //     );
+    
+    //     if (response.ok) {
+    //       const cloudinaryData =  await response.json();
+    //       if (cloudinaryData.secure_url) {
+    //         setUrl(cloudinaryData.secure_url);
+    //         formData.photo=cloudinaryData.secure_url;
+    //         console.log("Image uploaded and URL set:", cloudinaryData.secure_url);
+    //         // window.location.reload();
+    //       } else {
+    //         console.error("Error uploading image or secure_url is missing.");
+    //       }
+    //     } else {
+    //       console.error("Error uploading image to Cloudinary");
+    //     }
+    //   } catch (error) {
+    //     console.error("An error occurred while uploading image:", error);
+    //   }
+    // console.log("handle image trig");
     try {
       const response =await fetch("http://localhost:3000/event/api/submit", {
         method: "POST",
@@ -311,9 +111,14 @@ const  CreateEventForm = () => {
         console.log('Data saved:', responseData);
         // Clear form or perform other actions after successful submission
         setEventName('');
-        setStartDateTime('');
+        setStartDate('');
         setLocationType('');
         setDetails('');
+        setStartTime('');
+        setContact('');
+        setImage('');
+        setCommunity('');
+        setPostedBy('');
       } else {
         console.error('Failed to save data');
       }
@@ -321,19 +126,21 @@ const  CreateEventForm = () => {
       console.error('Error:', error);
     }
   };
-    console.log('Submitting:', {
-      eventName,
-      startDateTime,
-      locationType,
-      details,
-    });
+    // console.log('Submitting:', {
+    //   eventName,
+    //   startDate,
+    //   locationType,
+    //   details,
+    // });
  
 
   return (
-
     <WidgetWrapper>
     <div>
-      <h2>Create Event Page</h2>
+
+ 
+
+      <h2>Create Event </h2>
       <Box
                 display="grid"
               gap="30px"
@@ -358,15 +165,26 @@ const  CreateEventForm = () => {
         <br />
         <Box>
         <label>
-          Start Date and Time:
+          Start Date:
           <input
             sx={{ gridColumn: isNonMobile ? "span 2" : "span 4" }}
-            type="datetime-local"
-            value={startDateTime}
-            onChange={(e) => setStartDateTime(e.target.value)}
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
           />
         </label>
         </Box>
+        <Box>
+        <label>
+          Start Time:
+          <input
+            sx={{ gridColumn: isNonMobile ? "span 2" : "span 4" }}
+            type="time"
+            value={startTime}
+            onChange={(e) => setStartTime(e.target.value)}
+          />
+        </label>
+      </Box>
         <br />
         <Box>
         <label>
@@ -393,19 +211,88 @@ const  CreateEventForm = () => {
           />
         </label>
         </Box>
+        {/* <br />
+        
+        <Typography ><label >Picture</label><input type="file" onChange={(e)=>setImage(e.target.files[0])} /></Typography> */}
         <br />
-        {/* <button type="submit"  
-                fullWidth
-                sx={{
-                  m: "2rem 0",
-                  p: "1rem",
-                  backgroundColor: palette.primary.main,
-                  color: palette.background.alt,
-                  "&:hover": { color: palette.primary.main },
-                  
-                }}>Submit</button> */}
+          <Box>
+            <label >Contact: 
+            <input
+              sx={{ gridColumn: 'span 4' }}
+              type="number" // Use type="number" for numeric input
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+    />
 
 
+
+
+            </label>
+
+          </Box>
+          <br />
+            <Box>
+              
+            <Typography>Select community</Typography>
+      <Select
+        value={community}
+        onChange={(e)=>setCommunity(e.target.value)}
+        MenuProps={{
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'left',
+          },
+          transformOrigin: {
+            vertical: 'top',
+            horizontal: 'left',
+          },
+        
+          getContentAnchorEl: null, // Adjusts the positioning of the menu
+        }}
+        sx={{
+          width: '100%',
+          backgroundColor: palette.neutral.light,
+          borderRadius: '0.5rem',
+          padding: '0rem 1.5rem',
+          margin:'0.5rem'
+        }}
+      >
+        <MenuItem value="">Select an option</MenuItem>
+        {dropdownOptions.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </Select>
+
+            </Box>
+
+          <br />
+          <Box>
+          {/*
+          {/* <Map
+              {...viewport}
+              width="100%"
+              height="100%"
+              onViewportChange={(newViewport) => setViewport(newViewport)}
+              mapboxApiAccessToken="pk.eyJ1IjoiYXdhaXNtaXJ6YSIsImEiOiJjbG0zb3R5ZmQ0YXZnM2V0aHJzaXd4OG43In0.D9cO-iOtCGAj15q9jxDiuA"
+              > */}
+        {/* Add map components like markers, controls, etc. here */}
+        {/* <Marker latitude={37.7577} longitude={-122.4376}>
+          <div>Marker Content</div>
+        </Marker>
+        <NavigationControl />
+        <GeolocateControl />
+      </Map> */} 
+            {/* <SearchBox accessToken="pk.eyJ1IjoiYXdhaXNtaXJ6YSIsImEiOiJjbG0zb3R5ZmQ0YXZnM2V0aHJzaXd4OG43In0.D9cO-iOtCGAj15q9jxDiuA"></SearchBox>
+     
+               */}
+
+               {/* <AddMap ></AddMap> */}
+          </Box>
+           
+
+        {/* <Address></Address> */}
       <Button
           type="submit"
             sx={{
@@ -420,8 +307,12 @@ const  CreateEventForm = () => {
       </FlexBetween>
       </Box>
     </div>
+
     </WidgetWrapper>
+     
   );
+
+ 
 };
 
 export default CreateEventForm;
