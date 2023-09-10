@@ -28,18 +28,18 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
         justifyContent="space-between"
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-          <UserWidget userId={_id} picturePath={picturePath} />
+          <UserWidget userId={_id} loggedInUser={_id} picturePath={picturePath} />
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
            <MyPostWidget picturePath={picturePath} />
-           {/* <Navbar2 isMain={true}/> */}
+          <br></br>
            <NavbarWithProps isMain={true}></NavbarWithProps>
           <PostsWidget isProfile={false}/> 
           <EventPostsWidget isProfile={false}></EventPostsWidget>
- {/* <PostsWidget />  */}
+        {/* <FriendListWidget></FriendListWidget> */}
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">

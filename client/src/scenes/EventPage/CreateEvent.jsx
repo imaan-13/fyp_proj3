@@ -151,8 +151,9 @@ const  CreateEventForm = () => {
       <FlexBetween>
       <form onSubmit={handleSubmit}>
         <Box>
-         
+         <strong>
         <label>
+          
           Event Name:
           <input sx={{ gridColumn: "span 4" }}
             type="text"
@@ -160,10 +161,11 @@ const  CreateEventForm = () => {
             onChange={(e) => setEventName(e.target.value)}
           />
         </label>
-       
+        </strong>
         </Box>
         <br />
         <Box>
+          <strong>
         <label>
           Start Date:
           <input
@@ -173,8 +175,11 @@ const  CreateEventForm = () => {
             onChange={(e) => setStartDate(e.target.value)}
           />
         </label>
+        </strong>
         </Box>
+        <br />
         <Box>
+        <strong>
         <label>
           Start Time:
           <input
@@ -184,9 +189,11 @@ const  CreateEventForm = () => {
             onChange={(e) => setStartTime(e.target.value)}
           />
         </label>
+        </strong>
       </Box>
         <br />
         <Box>
+        <strong>
         <label>
           Location Type (In Person or Virtual):
           <select
@@ -199,9 +206,11 @@ const  CreateEventForm = () => {
             <option value="virtual">Virtual</option>
           </select>
         </label>
+        </strong>
         </Box>
         <br />
         <Box>
+        <strong>
         <label>
           Event Details:
           <textarea
@@ -210,13 +219,15 @@ const  CreateEventForm = () => {
             onChange={(e) => setDetails(e.target.value)}
           />
         </label>
+        </strong>
         </Box>
         {/* <br />
         
         <Typography ><label >Picture</label><input type="file" onChange={(e)=>setImage(e.target.files[0])} /></Typography> */}
         <br />
           <Box>
-            <label >Contact: 
+            <strong>
+            <label >Contact:
             <input
               sx={{ gridColumn: 'span 4' }}
               type="number" // Use type="number" for numeric input
@@ -228,12 +239,13 @@ const  CreateEventForm = () => {
 
 
             </label>
+            </strong>
 
           </Box>
           <br />
             <Box>
               
-            <Typography>Select community</Typography>
+            <Typography><strong>Select community</strong></Typography>
       <Select
         value={community}
         onChange={(e)=>setCommunity(e.target.value)}

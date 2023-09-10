@@ -4,7 +4,7 @@ import { ArrowDropDown } from "@mui/icons-material";
 // import { FlexBetween } from "components/FlexBetween";
 import { lightBlue } from "@mui/material/colors";
 import FlexBetween from "components/FlexBetween";
-
+import WidgetWrapper from "components/WidgetWrapper";
 const NavbarWithProps = ({ isMain, isComm, Comm }) => {
   const handleAllPostsClick = () => {
     if (isMain) {
@@ -45,6 +45,7 @@ const NavbarWithProps = ({ isMain, isComm, Comm }) => {
   };
 
   return (
+    <WidgetWrapper>
     <FlexBetween padding="1rem 6%" backgroundColor={lightBlue}>
       <FlexBetween gap="1.75rem">
         {/* Button for "All Posts" */}
@@ -78,6 +79,7 @@ const NavbarWithProps = ({ isMain, isComm, Comm }) => {
 
       {/* Rest of your code... */}
     </FlexBetween>
+    </WidgetWrapper>
   );
 };
 

@@ -16,12 +16,14 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Checkbox from "@mui/material/Checkbox";
 import { useEffect } from "react";
-
+// import {  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import FlexBetween from "components/FlexBetween";
 const PostWidget = ({
 //   title,
   body,
   photo,
-  // postedBy,
+  postedBy,
   userName,
   userPhoto,
   postId,
@@ -40,6 +42,7 @@ const dispatch=useDispatch()
 //  const [isChecked, setIsChecked] = useState(false);
  const [isLiked, setIsLiked] = useState("false");
  const [numberLikes,setNumberLikes]=useState([]);
+ const navigate = useNavigate();
 
  useEffect(() => {
   const fetchPostData = async () => {
@@ -56,6 +59,7 @@ const dispatch=useDispatch()
         setPost(postData); // Set the post data in state
         setIsLiked(postData.likes.includes(loggedInUserId)); // Set like status
         console.log(postData.likes.length);
+        
         setNumberLikes(postData.likes.length);
       } else {
         console.error("Error fetching post data");
@@ -102,15 +106,23 @@ const patchLike = async () => {
     
       
       {userName && (
-        <Typography variant="h6" color="text.primary" sx={{ mt: "1rem" }}>
+       
+        // <Typography variant="h6" color="text.primary" sx={{ mt: "1rem" }} >
+        <Typography
+        variant="h6"
+        color="text.primary"
+        sx={{ mt: "1rem", cursor: "pointer" }}
+        onClick={() => navigate(`/other-user/${postedBy}`)} // Use the correct URL for the user's profile
+      >
           <Box display="flex" alignItems="center">
           {userPhoto&&(<UserImage image={userPhoto}></UserImage>)}
           {/* {userName} */}
           {userName && (
-          <span style={{ marginLeft: userPhoto ? "0.5rem" : 0 }}>{userName}</span>
+          <span style={{ marginLeft: userPhoto ? "0.5rem" : 0 }}  >{userName}</span>
         )}
           </Box>
         </Typography>
+   
       )}
       {body && (
         <Typography color="text.primary" sx={{ mt: "1rem" }}>
@@ -147,6 +159,8 @@ const patchLike = async () => {
             label = {numberLikes}
          />
     </Typography>
+
+
     </WidgetWrapper>
   );
 };

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import PostWidget from "./PostWidget";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-const PostsWidget = ({ isProfile, isCommunity,community}) => {
+const PostsWidget = ({ isProfile, isCommunity,community,userId}) => {
   const [posts, setPosts] = useState([]);
   const token = useSelector((state) => state.token)
 const { _id, picturePath,firstName,lastName } = useSelector((state) => state.user);
@@ -49,7 +49,7 @@ const { _id, picturePath,firstName,lastName } = useSelector((state) => state.use
       fetchPosts(normalUrl);
     }
     else if (isProfile) {
-      const profileUrl = `http://localhost:3000/posts/${_id}/posts`;
+      const profileUrl = `http://localhost:3000/posts/${userId}/posts`;
       fetchPosts(profileUrl);
     } 
     
@@ -79,7 +79,7 @@ const { _id, picturePath,firstName,lastName } = useSelector((state) => state.use
             postId={post._id}
             body={post.body}
             photo={post.photo}
-            // postedBy={post.postedBy}
+            postedBy={post.postedBy}
             // firstName={user._id.firstName}
             userPhoto={post.userPhoto}
             userName={post.name}

@@ -34,12 +34,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    friends: [{
+    friends:[ {
       type: mongoose.Schema.Types.ObjectId,
       // default: [],
       ref:"User"
-    }
-    ]
+    }]
+    
     ,
     location: String,
     occupation: String,

@@ -25,7 +25,7 @@ import router from "./routes/event.js";
 import { submitFormData } from "./controllers/event.js";
 import {users,posts} from './data/index.js'
 
-
+// const cookie = require('cookie');
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config();
@@ -48,21 +48,28 @@ cloudinary.config({
   api_secret:'2IXMS3-rLSmKudQvvTFfLU8c5SU' 
 });
 
-
+// app.get('/set-cookie', (req, res) => {
+//   const sameSiteCookie = cookie.serialize('myCookie', 'myValue', {
+//     sameSite: 'None',
+//     secure: true, // Requires HTTPS
+//   });
+//   res.setHeader('Set-Cookie', sameSiteCookie);
+//   res.send('Cookie set with SameSite=None; Secure');
+// });
 
 /* FILE STORAGE */
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, "public/assets");
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    },
-  });
-  const upload = multer({ storage });
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, "public/assets");
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, file.originalname);
+//     },
+//   });
+//   const upload = multer({ storage });
   
   /* ROUTES WITH FILES */
-  app.post("/auth/register", upload.single("picture"), register);
+  app.post("/auth/register", register);
   app.post("/posts", verifyToken, createPost);  
   // app.post("/posts", verifyToken, upload.single("picture"), createPost);  
   // app.post("/event/api/submit",submitFormData);

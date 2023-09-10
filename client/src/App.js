@@ -20,6 +20,9 @@ import AllNewsFeed from 'scenes/newsFeeds/allFeed';
 import EventFeed from 'scenes/newsFeeds/eventFeed';
 import Navbar2 from 'scenes/navbar/newsFeedNav';
 import SavedEvents from 'scenes/homePage/savedEvents';
+import FriendProfile from 'scenes/profilePage/FriendsProfile';
+import EditProfileForm from 'scenes/profilePage/editprofile';
+import EditProfilepage from 'scenes/profilePage/editprofile';
 
 function App() {
 
@@ -40,7 +43,7 @@ function App() {
             />
         {/* <Route path="/event" element={isAuth ? <CreateEventForm /> : <Navigate to="/" />} /> */}
         <Route path="/event-page" Component={Eventpage}/>
-        <Route path="/education-community" element={<Edupage showEvents={true} ></Edupage>}/>
+        <Route path="/education-community" element={isAuth? <Edupage showEvents={true} ></Edupage> : <Navigate to="/" /> }/>
         <Route path="/education-community-events" element={<Edupage showEvents={false} ></Edupage>}/>
         <Route path="/arts&culture-community" element={<CulturePage showEvents={true}></CulturePage>}/>
         <Route path="/arts&culture-community-events" element={<CulturePage showEvents={false}></CulturePage>}/>
@@ -54,6 +57,8 @@ function App() {
         <Route path="/all-posts" Component={AllNewsFeed}/>
         <Route path="/event-posts" Component={EventFeed}/>
         <Route path="/saved-events" element={<SavedEvents></SavedEvents>}/>
+        <Route path="/other-user/:userId" element={<ProfilePage></ProfilePage>}/>
+        <Route path="/edit-profile" element={<EditProfilepage></EditProfilepage>}></Route>
       </Routes>
       </ThemeProvider>
      </BrowserRouter>
