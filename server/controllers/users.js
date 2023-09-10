@@ -40,7 +40,6 @@ export const editProfileUser = async (req, res) => {
       email,
       password,
       picturePath,
-      friends,
       location,
       occupation,
       _id
@@ -49,10 +48,17 @@ export const editProfileUser = async (req, res) => {
 
     // Assuming you have some way to authenticate the user, you can get their user ID
   
-
+    console.log(firstName,
+      lastName,
+      email,
+      // password,
+      picturePath,
+      location,
+      occupation,
+      _id);
     // Check if the user exists
     const existingUser = await User.findById(_id);
-
+      // console.log(existingUser);
     if (!existingUser) {
       return res.status(404).json({ error: 'User not found' });
     }
@@ -62,19 +68,21 @@ export const editProfileUser = async (req, res) => {
     existingUser.lastName = lastName;
     existingUser.email = email;
     existingUser.picturePath = picturePath;
-    existingUser.friends = friends;
+    
     existingUser.location = location;
     existingUser.occupation = occupation;
 
     // Check if the password needs to be updated
-    if (password) {
-      const salt = await bcrypt.genSalt();
-      const passwordHash = await bcrypt.hash(password, salt);
-      existingUser.password = passwordHash;
-    }
+    // if (password) {
+    //   const salt = await bcrypt.genSalt();
+    //   const passwordHash = await bcrypt.hash(password, salt);
+    //   existingUser.password = passwordHash;
+    // }
 
     // Save the updated user profile
+    // console.log(existingUser);
     const updatedUser = await existingUser.save();
+    console.log(updatedUser);
     res.status(200).json(updatedUser);
   } catch (err) {
     res.status(500).json({ error: err.message });

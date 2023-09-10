@@ -54,7 +54,7 @@ const [isPictureChanged, setIsPictureChanged] = useState(false);
           setPassword(userProfileData.password);
           setLocation(userProfileData.location);
           setOccupation(userProfileData.occupation);
-          setPicture(userProfileData.picture);
+          setPicture(userProfileData.picturePath);
         } else {
           console.error('Failed to fetch user profile data');
         }
@@ -73,7 +73,7 @@ const [isPictureChanged, setIsPictureChanged] = useState(false);
         firstName:firstName,
         lastName:lastName,
         email:email,
-        password:password,
+        // password:password,
         location:location,
         occupation:occupation,
         picturePath:picture,
@@ -134,7 +134,8 @@ const [isPictureChanged, setIsPictureChanged] = useState(false);
         const updatedProfileData = await response.json();
         // setProfileData(updatedProfileData);
         // Redirect to a success page or handle it as needed
-        navigate('/profile-updated');
+        // navigate('/profile-updated');
+        window.location.reload();
       } else {
         // Handle profile update failure, e.g., display an error message
         console.error('Profile update failed');
@@ -228,7 +229,7 @@ const [isPictureChanged, setIsPictureChanged] = useState(false);
             onChange={(e) => setEmail( e.target.value )}
           />
         </div>
-        <div>
+        {/* <div>
           <label htmlFor="password">Password:</label>
           <input
             type="password"
@@ -238,7 +239,7 @@ const [isPictureChanged, setIsPictureChanged] = useState(false);
             value={password}
             onChange={(e) => setPassword( e.target.value )}
           />
-        </div>
+        </div> */}
         <div>
           <Button type="submit" sx={{
             color: palette.background.alt,
