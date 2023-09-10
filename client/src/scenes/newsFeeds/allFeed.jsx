@@ -9,7 +9,7 @@ import EventPostsWidget from "scenes/widgets/EventPostsWidget";
 import Navbar2 from "scenes/navbar/newsFeedNav";
 import NavbarWithProps from "scenes/navbar/communityNewsFeed";
 import { Box, useMediaQuery } from "@mui/material";
-
+import ChatBox from "components/chat";
 import { useSelector } from "react-redux";
 const AllNewsFeed =()=>{
   
@@ -44,6 +44,7 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
         {isNonMobileScreens && (
           <Box flexBasis="26%">
             {/* <AdvertWidget /> */}
+          <ChatBox></ChatBox>
             <Box m="2rem 0" />
             {/* <FriendListWidget userId={_id} /> */}
           </Box>

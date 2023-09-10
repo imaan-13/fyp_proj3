@@ -5,6 +5,7 @@ import MyPostWidget from "scenes/widgets/MyPostWidget";
 import { Box, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
 import CreateEventForm from "scenes/EventPage/CreateEvent";
+import ChatBox from "components/chat";
 const Eventpage =()=>{
   
 
@@ -33,11 +34,17 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
           <CreateEventForm/>
         </Box>
-        {isNonMobileScreens && (
+       
+
+{isNonMobileScreens && (
           <Box flexBasis="26%">
             {/* <AdvertWidget /> */}
+            <ChatBox></ChatBox>
+            {/* <ChatComponent></ChatComponent> */}
             <Box m="2rem 0" />
             {/* <FriendListWidget userId={_id} /> */}
+            
+            {/* <FriendListWidget userId={_id} userfriend={userFriends}/> */}
           </Box>
         )}
       </Box>

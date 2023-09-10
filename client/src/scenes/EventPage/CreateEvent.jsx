@@ -14,6 +14,7 @@ import {
   MenuItem,Select
 } from "@mui/material";
 import { useSelector } from "react-redux";
+import Popup from "components/popUp";
 // import { AddressAutofill ,MapboxSearchBox, SearchBox} from "@mapbox/search-js-react";
 // import Map, {
 //   GeolocateControl,
@@ -36,6 +37,7 @@ const  CreateEventForm = () => {
   const { _id } = useSelector((state) => state.user);
   const [community, setCommunity] = useState(''); // New field
   const [postedBy, setPostedBy] = useState(''); // New field
+  const[popUpVal,setpopUpVal]=useState(false);
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const dropdownOptions = [
@@ -50,10 +52,14 @@ const  CreateEventForm = () => {
   // map.addControl(search);
 
 
+  const handlePopupClose = () => {
+    // Reload the page when the popup is closed
+    window.location.reload();
+  };
+  
 
-
-  const handleSubmit = async() => {
-    // event.preventDefault();
+  const handleSubmit = async(e) => {
+    e.preventDefault()
     // You can perform form submission logic here
     const formData = {
       eventName:eventName,
@@ -109,6 +115,7 @@ const  CreateEventForm = () => {
       if (response.ok) {
         const responseData = await response.json();
         console.log('Data saved:', responseData);
+        setpopUpVal(true)
         // Clear form or perform other actions after successful submission
         setEventName('');
         setStartDate('');
@@ -281,30 +288,11 @@ const  CreateEventForm = () => {
 
           <br />
           <Box>
-          {/*
-          {/* <Map
-              {...viewport}
-              width="100%"
-              height="100%"
-              onViewportChange={(newViewport) => setViewport(newViewport)}
-              mapboxApiAccessToken="pk.eyJ1IjoiYXdhaXNtaXJ6YSIsImEiOiJjbG0zb3R5ZmQ0YXZnM2V0aHJzaXd4OG43In0.D9cO-iOtCGAj15q9jxDiuA"
-              > */}
-        {/* Add map components like markers, controls, etc. here */}
-        {/* <Marker latitude={37.7577} longitude={-122.4376}>
-          <div>Marker Content</div>
-        </Marker>
-        <NavigationControl />
-        <GeolocateControl />
-      </Map> */} 
-            {/* <SearchBox accessToken="pk.eyJ1IjoiYXdhaXNtaXJ6YSIsImEiOiJjbG0zb3R5ZmQ0YXZnM2V0aHJzaXd4OG43In0.D9cO-iOtCGAj15q9jxDiuA"></SearchBox>
-     
-               */}
-
-               {/* <AddMap ></AddMap> */}
+        
           </Box>
            
 
-        {/* <Address></Address> */}
+       
       <Button
           type="submit"
             sx={{
@@ -312,9 +300,11 @@ const  CreateEventForm = () => {
               backgroundColor: palette.primary.main,
               borderRadius: "3rem",
             }}
+            
           >
             POST
           </Button>
+          {popUpVal&&(<Popup open={true} message={"Event posted Successfully"} handleClose={handlePopupClose}></Popup>)}
       </form>
       </FlexBetween>
       </Box>

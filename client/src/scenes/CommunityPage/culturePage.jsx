@@ -8,6 +8,7 @@ import PostsWidget from "scenes/widgets/PostsWidget";
 import { Box, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
 import NavbarWithProps from "scenes/navbar/communityNewsFeed";
+import ChatBox from "components/chat";
 const CulturePage =({showEvents})=>{
   
 
@@ -49,6 +50,7 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
         {isNonMobileScreens && (
           <Box flexBasis="26%">
             {/* <AdvertWidget /> */}
+            <ChatBox></ChatBox>
             <Box m="2rem 0" />
             {/* <FriendListWidget userId={_id} /> */}
           </Box>

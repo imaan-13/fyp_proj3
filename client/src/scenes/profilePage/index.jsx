@@ -7,6 +7,7 @@ import FriendListWidget from "scenes/widgets/FriendListWidget";
 import MyPostWidget from "scenes/widgets/MyPostWidget";
 import PostsWidget from "scenes/widgets/PostsWidget";
 import UserWidget from "scenes/widgets/UserWidget";
+import ChatBox from "components/chat";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -62,6 +63,17 @@ const ProfilePage = () => {
           <Box m="2rem 0" />
           <PostsWidget  isProfile={true} userId={userId}/>
         </Box>
+        {isNonMobileScreens && (
+          <Box flexBasis="26%">
+            {/* <AdvertWidget /> */}
+            <ChatBox></ChatBox>
+            {/* <ChatComponent></ChatComponent> */}
+            <Box m="2rem 0" />
+            {/* <FriendListWidget userId={_id} /> */}
+            
+            {/* <FriendListWidget userId={_id} userfriend={userFriends}/> */}
+          </Box>
+        )}
       </Box>
     </Box>
   );

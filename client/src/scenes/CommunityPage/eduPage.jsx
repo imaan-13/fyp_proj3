@@ -9,6 +9,7 @@ import EventPostsWidget from "scenes/widgets/EventPostsWidget";
 import Navbar2 from "scenes/navbar/newsFeedNav";
 import NavbarWithProps from "scenes/navbar/communityNewsFeed";
 import { useRoutes } from "react-router-dom";
+import ChatBox from "components/chat";
 const Edupage =({showEvents})=>{
   
 
@@ -53,6 +54,7 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
         {isNonMobileScreens && (
           <Box flexBasis="26%">
             {/* <AdvertWidget /> */}
+            <ChatBox></ChatBox>
             <Box m="2rem 0" />
             {/* <FriendListWidget userId={_id} /> */}
           </Box>

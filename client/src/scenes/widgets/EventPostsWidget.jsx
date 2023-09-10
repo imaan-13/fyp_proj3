@@ -102,7 +102,7 @@ const { _id, picturePath,firstName,lastName } = useSelector((state) => state.use
             postId={post._id}
             eventName={post.eventName}
             // photo={post.photo}
-            // postedBy={post.postedBy}
+            postedBy={post.postedBy}
             // firstName={user._id.firstName}
             date={post.startDate}
             time={post.startTime}

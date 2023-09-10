@@ -16,6 +16,9 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Checkbox from "@mui/material/Checkbox";
 import { useEffect } from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
+
+import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
 // import {  } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
@@ -120,7 +123,10 @@ const patchLike = async () => {
           {userName && (
           <span style={{ marginLeft: userPhoto ? "0.5rem" : 0 }}  >{userName}</span>
         )}
+
+         
           </Box>
+       
         </Typography>
    
       )}
@@ -146,7 +152,7 @@ const patchLike = async () => {
     
     <Typography>
  
-       <FormControlLabel
+       {/* <FormControlLabel
             control = {
                <Checkbox
                   icon = {<FavoriteBorderIcon />}
@@ -155,11 +161,38 @@ const patchLike = async () => {
                   checked={isLiked}
                   
                />
+               
             }
+            
+           
             label = {numberLikes}
-         />
-    </Typography>
+         /> */}
+          <Box display="flex" alignItems="center" justifyContent="space-between">
+          <Box>
+          <FormControlLabel
+            control={
+              <Checkbox
+                icon={<FavoriteBorderIcon />}
+                checkedIcon={<FavoriteIcon />}
+                checked={isLiked}
+                onChange={patchLike}
+              />
+            }
+            label={numberLikes}
+          />
+          {/* <CommentIcon style={{ cursor: "pointer" }}></CommentIcon> */}
+          <span style={{ cursor: 'pointer', verticalAlign: 'middle' }}>
+          <InsertCommentOutlinedIcon sx={{ marginTop: '7px' }} />
 
+        </span>
+          </Box>
+
+          {(postedBy===loggedInUserId)&&<DeleteIcon style={{ cursor: "pointer" }} />}
+        </Box>
+        
+        
+    </Typography>
+  
 
     </WidgetWrapper>
   );

@@ -42,23 +42,23 @@ function App() {
               element={isAuth ? <Homepage /> : <Navigate to="/" />}
             />
         {/* <Route path="/event" element={isAuth ? <CreateEventForm /> : <Navigate to="/" />} /> */}
-        <Route path="/event-page" Component={Eventpage}/>
+        <Route path="/event-page" element={isAuth?<Eventpage></Eventpage>: <Navigate to="/" /> }/>
         <Route path="/education-community" element={isAuth? <Edupage showEvents={true} ></Edupage> : <Navigate to="/" /> }/>
-        <Route path="/education-community-events" element={<Edupage showEvents={false} ></Edupage>}/>
-        <Route path="/arts&culture-community" element={<CulturePage showEvents={true}></CulturePage>}/>
-        <Route path="/arts&culture-community-events" element={<CulturePage showEvents={false}></CulturePage>}/>
-        <Route path="/social-community" element={<SocialPage showEvents={true}></SocialPage>}/>
-        <Route path="/social-community-events" element={<SocialPage showEvents={false}></SocialPage>}/>
+        <Route path="/education-community-events" element={isAuth?<Edupage showEvents={false} ></Edupage>: <Navigate to="/" />}/>
+        <Route path="/arts&culture-community" element={isAuth?<CulturePage showEvents={true}></CulturePage>:<Navigate to="/" />}/>
+        <Route path="/arts&culture-community-events" element={ isAuth?<CulturePage showEvents={false}></CulturePage>: <Navigate to="/" />}/>
+        <Route path="/social-community" element={isAuth?<SocialPage showEvents={true}></SocialPage>:<Navigate to="/" />}/>
+        <Route path="/social-community-events" element={isAuth?<SocialPage showEvents={false}></SocialPage>:<Navigate to="/" />}/>
 
         <Route
               path="/profile/:userId"
               element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
             />
-        <Route path="/all-posts" Component={AllNewsFeed}/>
-        <Route path="/event-posts" Component={EventFeed}/>
-        <Route path="/saved-events" element={<SavedEvents></SavedEvents>}/>
-        <Route path="/other-user/:userId" element={<ProfilePage></ProfilePage>}/>
-        <Route path="/edit-profile" element={<EditProfilepage></EditProfilepage>}></Route>
+        <Route path="/all-posts" element={isAuth?<AllNewsFeed></AllNewsFeed>:<Navigate to="/" />}/>
+        <Route path="/event-posts" element={isAuth?<EventFeed></EventFeed>:<Navigate to="/" />}/>
+        <Route path="/saved-events" element={isAuth?<SavedEvents></SavedEvents>:<Navigate to="/" />}/>
+        <Route path="/other-user/:userId" element={isAuth?<ProfilePage></ProfilePage>:<Navigate to="/" />}/>
+        <Route path="/edit-profile" element={isAuth?<EditProfilepage></EditProfilepage>:<Navigate to="/" />}></Route>
       </Routes>
       </ThemeProvider>
      </BrowserRouter>

@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import FlexBetween from 'components/FlexBetween';
 import { useSelector } from 'react-redux';
+import WidgetWrapper from 'components/WidgetWrapper';
+import Popup from 'components/popUp';
 
 const EditProfileForm = () => {
 //   const [profileData, setProfileData] = useState({
@@ -31,6 +33,7 @@ const [location, setLocation] = useState('');
 const [occupation, setOccupation] = useState('');
 const [picture, setPicture] = useState(null);
 const [isPictureChanged, setIsPictureChanged] = useState(false);
+const[popUpVal,setpopUpVal]=useState(false);
   const [url, setUrl] = useState('');
   const { palette } = useTheme();
 //   const [pageType, setPageType] = useState('register'); // Start with registration
@@ -65,6 +68,13 @@ const [isPictureChanged, setIsPictureChanged] = useState(false);
 
     fetchUserProfile();
   }, []);
+
+
+  const handlePopupClose = () => {
+    // Reload the page when the popup is closed
+    window.location.reload();
+  };
+  
 
   const handleFormSubmit = async (e) => {
 
@@ -135,7 +145,9 @@ const [isPictureChanged, setIsPictureChanged] = useState(false);
         // setProfileData(updatedProfileData);
         // Redirect to a success page or handle it as needed
         // navigate('/profile-updated');
-        window.location.reload();
+        setpopUpVal(true);
+        // window.location.reload();
+
       } else {
         // Handle profile update failure, e.g., display an error message
         console.error('Profile update failed');
@@ -147,6 +159,7 @@ const [isPictureChanged, setIsPictureChanged] = useState(false);
 
   return (
     <form onSubmit={handleFormSubmit}>
+      <WidgetWrapper>
       <Box
         display="grid"
         gap="30px"
@@ -155,7 +168,7 @@ const [isPictureChanged, setIsPictureChanged] = useState(false);
         
           <>
             <div>
-              <label htmlFor="firstName">First Name:</label>
+              <label htmlFor="firstName"><strong>First Name:</strong></label>
               <input
                 type="text"
                 id="firstName"
@@ -166,7 +179,7 @@ const [isPictureChanged, setIsPictureChanged] = useState(false);
               />
             </div>
             <div>
-              <label htmlFor="lastName">Last Name:</label>
+              <label htmlFor="lastName"><strong>Last Name:</strong></label>
               <input
                 type="text"
                 id="lastName"
@@ -177,7 +190,7 @@ const [isPictureChanged, setIsPictureChanged] = useState(false);
               />
             </div>
             <div>
-              <label htmlFor="location">Location:</label>
+              <label htmlFor="location"><strong>Location:</strong></label>
               <input
                 type="text"
                 id="location"
@@ -188,7 +201,7 @@ const [isPictureChanged, setIsPictureChanged] = useState(false);
               />
             </div>
             <div>
-              <label htmlFor="occupation">Occupation:</label>
+              <label htmlFor="occupation"><strong>Occupation:</strong></label>
               <input
                 type="text"
                 id="occupation"
@@ -199,7 +212,7 @@ const [isPictureChanged, setIsPictureChanged] = useState(false);
               />
             </div>
             <div>
-              <label htmlFor="picture">Profile Picture:</label>
+              <label htmlFor="picture"><strong>Profile Picture:</strong></label>
               <Box
                 p="1rem"
                 sx={{ "&:hover": { cursor: "pointer" } }}
@@ -219,7 +232,7 @@ const [isPictureChanged, setIsPictureChanged] = useState(false);
           </>
     
         <div>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email"><strong>Email:</strong></label>
           <input
             type="email"
             id="email"
@@ -247,7 +260,9 @@ const [isPictureChanged, setIsPictureChanged] = useState(false);
             borderRadius: "3rem",
           }}>UPDATE PROFILE</Button>
         </div>
+        {popUpVal&& <Popup open={true} message={"Profile Updated Successfully!"} handleClose={handlePopupClose}/> }
       </Box>
+      </WidgetWrapper>
     </form>
   );
 };

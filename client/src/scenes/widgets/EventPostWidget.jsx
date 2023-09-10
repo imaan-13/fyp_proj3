@@ -19,11 +19,13 @@
   // import { SaveOutlinedIcon, SavedIcon } from "@mui/icons-material";
   import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
   import BookmarkIcon from '@mui/icons-material/Bookmark';
+  import DeleteIcon from '@mui/icons-material/Delete';
+  import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
   const EventPostWidget = ({
   //   title,
     // body,
     photo,
-    // postedBy,
+    postedBy,
     userName,
     userPhoto,
     postId,
@@ -234,7 +236,8 @@
         )} */}
       
       <Typography>
-   
+      <Box display="flex" alignItems="center" justifyContent="space-between">
+        <Box>
          <FormControlLabel
               control = {
                  <Checkbox
@@ -247,6 +250,11 @@
               }
               label = {numberLikes}
            />
+            <span style={{ cursor: 'pointer', verticalAlign: 'middle' }}>
+          <InsertCommentOutlinedIcon sx={{ marginTop: '7px' }} />
+
+         </span>
+         </Box>
               <FormControlLabel
           control={
             <Checkbox
@@ -258,6 +266,9 @@
           }
           label="Save" // You can customize the label as needed
         />
+    
+        {(postedBy===loggedInUserId)&&<DeleteIcon style={{ cursor: "pointer" }} />}
+        </Box>
       </Typography>
       <Typography>
       
