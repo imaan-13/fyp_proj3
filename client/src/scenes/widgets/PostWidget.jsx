@@ -9,6 +9,7 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import UserImage from "components/UserImage";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useState } from "react";
+import Comment from "components/comment";
 // import { dispatch } from "react";
 import { useDispatch } from 'react-redux';
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -183,6 +184,7 @@ const patchLike = async () => {
           {/* <CommentIcon style={{ cursor: "pointer" }}></CommentIcon> */}
           <span style={{ cursor: 'pointer', verticalAlign: 'middle' }}>
           <InsertCommentOutlinedIcon sx={{ marginTop: '7px' }} />
+        
 
         </span>
           </Box>
@@ -192,7 +194,8 @@ const patchLike = async () => {
         
         
     </Typography>
-  
+    
+    
 
     </WidgetWrapper>
   );

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import PostWidget from "./PostWidget";
 import { useSelector } from "react-redux/es/hooks/useSelector";
+
 const PostsWidget = ({ isProfile, isCommunity,community,userId}) => {
   const [posts, setPosts] = useState([]);
   const token = useSelector((state) => state.token)

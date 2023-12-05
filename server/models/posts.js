@@ -87,6 +87,11 @@ community:{
   type:String,
   // required:true
 }
+,
+comments:{
+  type:Array,
+  default:[]
+}
 
 
 })

@@ -123,6 +123,7 @@ const Navbar = () => {
           {/* <Message sx={{ fontSize: "25px" }} /> */}
           {/* <Notifications sx={{ fontSize: "25px" }} /> */}
           <BookmarksIcon onClick={()=>navigate("/saved-events")} sx={{fontSize: "25px"}}></BookmarksIcon>
+          <label onClick={()=>navigate("/mychats")}>My chats</label>
           <Help sx={{ fontSize: "25px" }} />
           <FormControl variant="standard" value={fullName}>
             <Select

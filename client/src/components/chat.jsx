@@ -23,6 +23,7 @@ import {
 } from "@mui/icons-material";
 import { useSelector } from 'react-redux';
 import FriendChat from './FriendChat';
+import SideDrawer from './misscellaneous/SideDrawer';
 const ChatBox = () => {
   const [inputText, setInputText] = useState('');
   const [messages, setMessages] = useState([]);
@@ -35,7 +36,10 @@ const ChatBox = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedFriend, setSelectedFriend] = useState('')
   const [isSelected, setisSelected]=useState(false)
-
+  const [selectedChat, setSelectedChat] = useState();
+  const [user, setUser] = useState();
+  const [notification, setNotification] = useState([]);
+  const [chats, setChats] = useState();
 
 
   const getUser = async () => {
@@ -84,6 +88,7 @@ const ChatBox = () => {
     <WidgetWrapper>
     <Container maxWidth="xs">
     <Box display="flex" alignItems="center" padding="0.2rem">
+    <SideDrawer></SideDrawer>
     <ChatIcon></ChatIcon>
     <h2>Chat</h2>
     

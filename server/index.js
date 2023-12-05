@@ -12,6 +12,7 @@ import { register } from "./controllers/auth.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
+import chatRoutes from "./routes/chat.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
 import User from "./models/User.js";
@@ -24,6 +25,7 @@ import Event from "./models/Events.js";
 import router from "./routes/event.js";
 import { submitFormData } from "./controllers/event.js";
 import {users,posts} from './data/index.js'
+import eventorganizer from "./routes/eventorganizer.js"
 
 // const cookie = require('cookie');
 const __filename = fileURLToPath(import.meta.url);
@@ -80,6 +82,8 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/event",router);
+app.use("/chat", chatRoutes);
+app.use("/event-organizer",eventorganizer)
 
   /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;

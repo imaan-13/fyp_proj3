@@ -23,6 +23,7 @@ import SavedEvents from 'scenes/homePage/savedEvents';
 import FriendProfile from 'scenes/profilePage/FriendsProfile';
 import EditProfileForm from 'scenes/profilePage/editprofile';
 import EditProfilepage from 'scenes/profilePage/editprofile';
+import MyChats from 'scenes/chat/mychatsPage';
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
             />
         {/* <Route path="/event" element={isAuth ? <CreateEventForm /> : <Navigate to="/" />} /> */}
         <Route path="/event-page" element={isAuth?<Eventpage></Eventpage>: <Navigate to="/" /> }/>
+        
         <Route path="/education-community" element={isAuth? <Edupage showEvents={true} ></Edupage> : <Navigate to="/" /> }/>
         <Route path="/education-community-events" element={isAuth?<Edupage showEvents={false} ></Edupage>: <Navigate to="/" />}/>
         <Route path="/arts&culture-community" element={isAuth?<CulturePage showEvents={true}></CulturePage>:<Navigate to="/" />}/>
@@ -59,6 +61,7 @@ function App() {
         <Route path="/saved-events" element={isAuth?<SavedEvents></SavedEvents>:<Navigate to="/" />}/>
         <Route path="/other-user/:userId" element={isAuth?<ProfilePage></ProfilePage>:<Navigate to="/" />}/>
         <Route path="/edit-profile" element={isAuth?<EditProfilepage></EditProfilepage>:<Navigate to="/" />}></Route>
+        <Route path="/mychats" element={isAuth?<MyChats></MyChats>:<Navigate to="/" />}></Route>
       </Routes>
       </ThemeProvider>
      </BrowserRouter>
