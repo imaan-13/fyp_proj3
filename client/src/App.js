@@ -12,9 +12,18 @@ import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import Eventpage from 'scenes/homePage/index2';
 import Edupage from 'scenes/CommunityPage/eduPage';
-import culturePage from 'scenes/CommunityPage/culturePage';
+// import culturePage from 'scenes/CommunityPage/culturePage';
+import CulturePage from 'scenes/CommunityPage/culturePage';
 import SocialPage from 'scenes/CommunityPage/socialPage';
 import ProfilePage from 'scenes/profilePage';
+import AllNewsFeed from 'scenes/newsFeeds/allFeed';
+import EventFeed from 'scenes/newsFeeds/eventFeed';
+import Navbar2 from 'scenes/navbar/newsFeedNav';
+import SavedEvents from 'scenes/homePage/savedEvents';
+import FriendProfile from 'scenes/profilePage/FriendsProfile';
+import EditProfileForm from 'scenes/profilePage/editprofile';
+import EditProfilepage from 'scenes/profilePage/editprofile';
+import MyChats from 'scenes/chat/mychatsPage';
 
 function App() {
 
@@ -34,15 +43,25 @@ function App() {
               element={isAuth ? <Homepage /> : <Navigate to="/" />}
             />
         {/* <Route path="/event" element={isAuth ? <CreateEventForm /> : <Navigate to="/" />} /> */}
-        <Route path="/event-page" Component={Eventpage}/>
-        <Route path="/education-community" Component={Edupage}/>
-        <Route path="/arts&culture-community" Component={culturePage}/>
-        <Route path="/social-community" Component={SocialPage}/>
+        <Route path="/event-page" element={isAuth?<Eventpage></Eventpage>: <Navigate to="/" /> }/>
+        
+        <Route path="/education-community" element={isAuth? <Edupage showEvents={true} ></Edupage> : <Navigate to="/" /> }/>
+        <Route path="/education-community-events" element={isAuth?<Edupage showEvents={false} ></Edupage>: <Navigate to="/" />}/>
+        <Route path="/arts&culture-community" element={isAuth?<CulturePage showEvents={true}></CulturePage>:<Navigate to="/" />}/>
+        <Route path="/arts&culture-community-events" element={ isAuth?<CulturePage showEvents={false}></CulturePage>: <Navigate to="/" />}/>
+        <Route path="/social-community" element={isAuth?<SocialPage showEvents={true}></SocialPage>:<Navigate to="/" />}/>
+        <Route path="/social-community-events" element={isAuth?<SocialPage showEvents={false}></SocialPage>:<Navigate to="/" />}/>
 
         <Route
               path="/profile/:userId"
               element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
             />
+        <Route path="/all-posts" element={isAuth?<AllNewsFeed></AllNewsFeed>:<Navigate to="/" />}/>
+        <Route path="/event-posts" element={isAuth?<EventFeed></EventFeed>:<Navigate to="/" />}/>
+        <Route path="/saved-events" element={isAuth?<SavedEvents></SavedEvents>:<Navigate to="/" />}/>
+        <Route path="/other-user/:userId" element={isAuth?<ProfilePage></ProfilePage>:<Navigate to="/" />}/>
+        <Route path="/edit-profile" element={isAuth?<EditProfilepage></EditProfilepage>:<Navigate to="/" />}></Route>
+        <Route path="/mychats" element={isAuth?<MyChats></MyChats>:<Navigate to="/" />}></Route>
       </Routes>
       </ThemeProvider>
      </BrowserRouter>

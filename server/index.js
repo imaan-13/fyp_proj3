@@ -12,6 +12,7 @@ import { register } from "./controllers/auth.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
+import chatRoutes from "./routes/chat.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
 import User from "./models/User.js";
@@ -24,6 +25,9 @@ import Event from "./models/Events.js";
 import router from "./routes/event.js";
 import { submitFormData } from "./controllers/event.js";
 import {users,posts} from './data/index.js'
+import eventorganizer from "./routes/eventorganizer.js"
+
+// const cookie = require('cookie');
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config();
@@ -38,20 +42,38 @@ app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 
+import {v2 as cloudinary} from 'cloudinary';
+          
+cloudinary.config({ 
+  cloud_name: 'event-cloud', 
+  api_key: '357864655947295', 
+  api_secret:'2IXMS3-rLSmKudQvvTFfLU8c5SU' 
+});
+
+// app.get('/set-cookie', (req, res) => {
+//   const sameSiteCookie = cookie.serialize('myCookie', 'myValue', {
+//     sameSite: 'None',
+//     secure: true, // Requires HTTPS
+//   });
+//   res.setHeader('Set-Cookie', sameSiteCookie);
+//   res.send('Cookie set with SameSite=None; Secure');
+// });
+
 /* FILE STORAGE */
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, "public/assets");
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    },
-  });
-  const upload = multer({ storage });
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, "public/assets");
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, file.originalname);
+//     },
+//   });
+//   const upload = multer({ storage });
   
   /* ROUTES WITH FILES */
-  app.post("/auth/register", upload.single("picture"), register);
-  app.post("/posts", verifyToken, upload.single("picture"), createPost);  
+  app.post("/auth/register", register);
+  app.post("/posts", verifyToken, createPost);  
+  // app.post("/posts", verifyToken, upload.single("picture"), createPost);  
   // app.post("/event/api/submit",submitFormData);
 
 
@@ -60,6 +82,8 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/event",router);
+app.use("/chat", chatRoutes);
+app.use("/event-organizer",eventorganizer)
 
   /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;

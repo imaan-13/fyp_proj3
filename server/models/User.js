@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
+
+    userId:{
+      type:String
+    
+    },
     firstName: {
       type: String,
       required: true,
@@ -29,19 +34,24 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    friends: [{
+    friends:[ {
       type: mongoose.Schema.Types.ObjectId,
       // default: [],
       ref:"User"
-    }
-    ]
+    }]
+    
     ,
     location: String,
     occupation: String,
     viewedProfile: Number,
     impressions: Number,
+    // likedPosts:{type:Array,
+    //   default:[],
+    // },
   },
+  
   { timestamps: true }
+
 );
 
 const User = mongoose.model("User", UserSchema);
