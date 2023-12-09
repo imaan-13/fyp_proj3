@@ -8,6 +8,7 @@ import MyPostWidget from "scenes/widgets/MyPostWidget";
 import PostsWidget from "scenes/widgets/PostsWidget";
 import UserWidget from "scenes/widgets/UserWidget";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import StarRating from "scenes/widgets/feedback";
 
 const FriendProfile = () => {
   const [user, setUser] = useState(null);
@@ -42,6 +43,7 @@ const FriendProfile = () => {
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
           <UserWidget userId={userId}  picturePath={user.picturePath} />
+        
           <Box m="2rem 0" />
           {/* <FriendListWidget userId={userId} /> */}
           <button>add friend</button>

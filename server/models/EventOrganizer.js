@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const EventOrganizerSchema = new mongoose.Schema(
   {
    
@@ -17,8 +18,16 @@ const EventOrganizerSchema = new mongoose.Schema(
       type: String, // You can change this to a specific type based on your needs, e.g., Buffer for storing file data.
      
     },
+
+    // ratings:{
+    //   type:[Number],
+    // }
   
-   
+    ratings: {
+      type: Map, // Using Map to store key-value pairs
+      of: Number, // Values within the Map must be of type Number
+      default: {},
+    }
   },
   { timestamps: true }
 );

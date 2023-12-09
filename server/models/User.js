@@ -42,6 +42,33 @@ const UserSchema = new mongoose.Schema(
     
     ,
     location: String,
+
+    // location: {
+    //   type: { type: String, enum: ['Point'], default: 'Point' },
+    //   coordinates: [Number],
+    // },
+
+    // location2: {
+    //   type: {
+    //     type: String,
+    //     enum: ['Point'],
+    //     default: 'Point',
+    //   },
+    //   coordinates: {
+    //     type: [Number],
+    //     required: true,
+    //   },
+    // },
+    latitude: {
+      type: Number,
+      default:0,
+      // required: true,
+    },
+    longitude: {
+      type: Number,
+      default:0,
+      // required: true,
+    },
     occupation: String,
     viewedProfile: Number,
     impressions: Number,

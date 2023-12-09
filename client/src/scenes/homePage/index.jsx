@@ -13,14 +13,49 @@ import ChatComponent from "components/chat";
 // import ChatPanel from "components/chat";
 // import ChatBox from "components/chat";
 import { useState, useEffect } from "react";
-
+import axios from "axios";
 import { useSelector } from "react-redux";
 import ChatBox from "components/chat";
+import LocationTracker from "components/LocationTracker";
 const Homepage =()=>{
 
-  const { _id, picturePath, token } = useSelector((state) => state.user);
+  const { _id, picturePath, token, user } = useSelector((state) => state.user);
+  const [userLocation, setUserLocation] = useState(null);
+  const [nearbyUsers, setNearbyUsers] = useState([]);
 
+  // useEffect(() => {
+  //   navigator.geolocation.getCurrentPosition(
+  //     async (position) => {
+  //       const { latitude, longitude } = position.coords;
+  //       setUserLocation([longitude, latitude]);
   
+  //       try {
+  //         const response = await fetch(`http://localhost:3000/users/userlocation/${_id}`, {
+  //           method: 'POST',
+  //           headers: {
+  //             'Content-Type': 'application/json',
+  //           },
+  //           body: JSON.stringify({ coordinates: userLocation }),
+  //         });
+  
+  //         if (!response.ok) {
+  //           throw new Error(`HTTP error! Status: ${response.status}`);
+  //         }
+  
+  //         const responseData = await response.json();
+  //         console.log(responseData);
+  //       } catch (error) {
+  //         console.error('Fetch error:', error);
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error(error);
+  //     }
+  //   );
+  // }, [user, setUserLocation, userLocation]);
+  
+  
+
 const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   
 
@@ -57,7 +92,7 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
           <EventPostsWidget isProfile={false}></EventPostsWidget>
          
           </Box>
-          
+          <LocationTracker></LocationTracker>
         {/* <FriendListWidget></FriendListWidget> */}
         {/* </Box> */}
         {isNonMobileScreens && (

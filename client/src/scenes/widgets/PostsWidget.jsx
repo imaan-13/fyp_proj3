@@ -46,7 +46,7 @@ const { _id, picturePath,firstName,lastName } = useSelector((state) => state.use
     if (!isCommunity&&!isProfile) {
       // const communityUrl = `http://localhost:3000/posts/${community}`;
       // fetchPosts(communityUrl);
-      const normalUrl = "http://localhost:3000/posts";
+      const normalUrl = "http://localhost:3000/posts"; 
       fetchPosts(normalUrl);
     }
     else if (isProfile) {

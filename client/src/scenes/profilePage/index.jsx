@@ -8,6 +8,7 @@ import MyPostWidget from "scenes/widgets/MyPostWidget";
 import PostsWidget from "scenes/widgets/PostsWidget";
 import UserWidget from "scenes/widgets/UserWidget";
 import ChatBox from "components/chat";
+import StarRating from "scenes/widgets/feedback";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -48,12 +49,16 @@ const ProfilePage = () => {
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
           <UserWidget userId={userId} loggedInUser={_id} picturePath={user.picturePath} />
-          
+         
           <Box m="2rem 0" />
           {(userId===_id)&&
            ( <FriendListWidget userId={userId} userfriend={userFriends}/>)}
+           
+           {(userId!==_id)&&
+             ( <StarRating></StarRating> )}
        
         </Box>
+        
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}

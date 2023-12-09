@@ -185,3 +185,81 @@ export const addRemoveFriend = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+
+
+// export const Location= async (req, res) => {
+//   const { username } = req.params;
+
+//   try {
+//     const user = await User.findOne({ username });
+//     const nearbyUsers = await User.find({
+//       location: {
+//         $near: {
+//           $geometry: {
+//             type: 'Point',
+//             coordinates: user.location.coordinates,
+//           },
+//           $maxDistance: 10000, // Adjust the maximum distance as needed (in meters)
+//         },
+//       },
+//     });
+    
+//     res.json({ success: true, nearbyUsers });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ success: false, error: 'Internal Server Error' });
+//   }
+// };
+
+
+
+// export const setLocation= async (req, res) => {
+//   const {  coordinates } = req.body;
+//   const {userId}=req.params;
+  
+//   try {
+//     // await User.updateOne({ username }, { $set: { location: { coordinates } } });
+//     // await User.updateOne(
+//     //   { username },
+//     //   { $set: { location: { type: 'Point', coordinates: coordinates } } }
+//     await User.findByIdAndUpdate(
+//       userId,
+//       { $set: { location2: { type: 'Point', coordinates: coordinates } } },
+//       { new: true } // This option returns the modified document instead of the original
+//     );
+  
+//     res.json({ coordinates });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ success: false, error: 'Internal Server Error' });
+//   }
+// };
+
+
+
+export const saveCoordinates = async (req, res) => {
+  try {
+    const { userId, latitude, longitude } = req.body;
+
+    // Find the user by userId
+    const user = await User.findById(userId);
+    console.log(userId, latitude,longitude);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    console.log(userId, latitude,longitude);
+    // Update the user's location coordinates
+    user.latitude = latitude;
+    user.longitude = longitude;
+
+    
+    // Save the updated user to the database
+    await user.save();
+
+    res.status(200).json({ message: 'Coordinates saved successfully' });
+  } catch (error) {
+    console.error('Error saving coordinates:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};

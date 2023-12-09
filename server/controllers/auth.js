@@ -15,6 +15,7 @@ export const register = async (req, res) => {
       friends,
       location,
       occupation,
+    
       // likedPosts,
     } = req.body;
 

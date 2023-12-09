@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
 import { Link } from 'react-router-dom';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const dispatch = useDispatch();
@@ -107,12 +108,15 @@ const Navbar = () => {
               <MenuItem onClick={()=>navigate("/social-community")}><Typography>Social</Typography></MenuItem>
             </Select>
           </FormControl>
+
+          
                 
       </FlexBetween>
-
+              
       {/* DESKTOP NAV */}
       {isNonMobileScreens ? (
         <FlexBetween gap="2rem">
+          <LocationOnIcon></LocationOnIcon>
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />

@@ -24,8 +24,16 @@ import FriendProfile from 'scenes/profilePage/FriendsProfile';
 import EditProfileForm from 'scenes/profilePage/editprofile';
 import EditProfilepage from 'scenes/profilePage/editprofile';
 import MyChats from 'scenes/chat/mychatsPage';
+import { useEffect } from 'react';
+
+
 
 function App() {
+
+
+ 
+
+   
 
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);

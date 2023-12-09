@@ -3,6 +3,7 @@ import { Box,useTheme,useMediaQuery } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import WidgetWrapper from "components/WidgetWrapper";
 import Address from "components/Address";
+
 import {
   
   Divider,
@@ -51,7 +52,20 @@ const  CreateEventForm = () => {
   // search.accessToken = '<your access token here>';
   // map.addControl(search);
 
-
+  // const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
+  // const handleLocationChange = (newLocation) => {
+  //   // Update the location state with the new values
+  //   console.log("fromeventpage",newLocation);
+  //   setLocation(newLocation);
+  // };
+  const handleLocationChange = (newLatitude, newLongitude) => {
+    // Update the location state with the new values
+   setLatitude(newLatitude)
+   setLongitude(newLongitude)
+   
+  }
   const handlePopupClose = () => {
     // Reload the page when the popup is closed
     window.location.reload();
@@ -139,7 +153,9 @@ const  CreateEventForm = () => {
     //   locationType,
     //   details,
     // });
- 
+    useEffect(() => {
+      console.log("location lat", latitude, "lon", longitude);
+    }, [latitude, longitude]);
 
   return (
     <WidgetWrapper>
@@ -288,7 +304,7 @@ const  CreateEventForm = () => {
 
           <br />
           <Box>
-        
+            <AddMap onLocationChange={handleLocationChange} ></AddMap>
           </Box>
            
 
