@@ -55,15 +55,17 @@ const  CreateEventForm = () => {
   // const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const[address,setAddress]=useState("");
   // const handleLocationChange = (newLocation) => {
   //   // Update the location state with the new values
   //   console.log("fromeventpage",newLocation);
   //   setLocation(newLocation);
   // };
-  const handleLocationChange = (newLatitude, newLongitude) => {
+  const handleLocationChange = (newLatitude, newLongitude,newAddress) => {
     // Update the location state with the new values
    setLatitude(newLatitude)
    setLongitude(newLongitude)
+   setAddress(newAddress)
    
   }
   const handlePopupClose = () => {
@@ -84,6 +86,10 @@ const  CreateEventForm = () => {
       contact:contact,
       community:community,
       postedBy:(_id),
+      locationLongitude:longitude,
+      locationLangitude:latitude,
+      address:address
+      
       
     };
     // const Data = new FormData();
@@ -155,7 +161,7 @@ const  CreateEventForm = () => {
     // });
     useEffect(() => {
       console.log("location lat", latitude, "lon", longitude);
-    }, [latitude, longitude]);
+    }, [latitude, longitude,address]);
 
   return (
     <WidgetWrapper>
@@ -304,8 +310,16 @@ const  CreateEventForm = () => {
 
           <br />
           <Box>
+            <strong>
+            <label>
+              Location
+            </label>
+            </strong>
             <AddMap onLocationChange={handleLocationChange} ></AddMap>
           </Box>
+
+          <p>{address}</p>
+          <br />
            
 
        

@@ -65,6 +65,20 @@ const eventSchema = new mongoose.Schema({
     name:{
         type:String
     }
+,
+    locationLongitude:{
+        type: Number,
+        default:0,
+    },
+
+    locationLangitude:{
+        type: Number,
+        default:0,
+    },
+
+    address:{
+        type:String,
+    }
 });
 
 const Event = mongoose.model('Event', eventSchema);

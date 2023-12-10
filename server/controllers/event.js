@@ -6,14 +6,15 @@ export const submitFormData = async (req, res) => {
     const {
         eventName,
         startDate,
-    
+        locationLongitude,
+        locationLangitude,
         startTime,
         locationType,
         details,
         contact,
         community,
         postedBy,
-        
+        address,
         } = req.body;
         const postuser=await User.findById(postedBy)
     try {
@@ -29,6 +30,9 @@ export const submitFormData = async (req, res) => {
             postedBy,
             userPhoto:postuser.picturePath,
             name:postuser.firstName+" "+postuser.lastName,
+            address,
+            locationLangitude,
+            locationLongitude,
             
             });
         await newFormData.save();
@@ -189,5 +193,56 @@ export const fetchSavedPosts = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
+// Helper function to calculate the distance between two sets of coordinates using Haversine formula
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+  const R = 6371; // Earth radius in kilometers
+  const dLat = (lat2 - lat1) * (Math.PI / 180);
+  const dLon = (lon2 - lon1) * (Math.PI / 180);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c; // Distance in kilometers
+  return distance;
+};
+
+
+export const filterEventsByRadius = async (req,res) => {
+
+  try {
+    // Fetch the user's location coordinates
+    const {userId,selectedRadius}=req.body
+    const user = await User.findById(userId);
+
+    if (!user) {
+      // Handle the case where the user is not found
+      return res.status(404).json({ error: 'User not found' });
+    }
+    const userLatitude = user.latitude;
+    const userLongitude = user.longitude;
+    // console.log(user);
+    // Fetch all events
+    const events = await Event.find();
+
+    // Filter events based on distance from the user's location
+    const filteredEvents = events.filter(event => {
+      const eventLatitude = event.locationLangitude; // Note: Corrected the field name from locationLangitude to locationLatitude
+      const eventLongitude = event.locationLongitude;
+
+      // Calculate the distance between the user and the event
+      const distance = calculateDistance(userLatitude, userLongitude, eventLatitude, eventLongitude);
+      console.log("DISTANCE,",distance);
+      // Check if the distance is within the selected radius
+      return distance <= selectedRadius;
+    });
+    console.log(filteredEvents)
+    res.json({ filteredEvents,userLatitude,userLongitude });
+  } catch (error) {
+    console.error('Error filtering events:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };

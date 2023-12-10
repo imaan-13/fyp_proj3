@@ -4,7 +4,7 @@ import PostWidget from "./PostWidget";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import EventPostWidget from "./EventPostWidget";
 
-const EventPostsWidget = ({ isProfile, isCommunity,community,getSaved}) => {
+const EventPostsWidget = ({ isProfile, isCommunity,community,getSaved,filteredEvents}) => {
   const [posts, setPosts] = useState([]);
   const token = useSelector((state) => state.token)
 const { _id, picturePath,firstName,lastName } = useSelector((state) => state.user);
@@ -64,7 +64,12 @@ const { _id, picturePath,firstName,lastName } = useSelector((state) => state.use
   }
 };
 
-
+// useEffect(() => {
+//   // Use filteredEvents when available
+//   if (filteredEvents && filteredEvents.length > 0) {
+//     setPosts(filteredEvents);
+//   }
+// }, [filteredEvents]);
   useEffect(() => {
     // Fetch user, token, and posts here
     if (isCommunity) {
@@ -77,15 +82,22 @@ const { _id, picturePath,firstName,lastName } = useSelector((state) => state.use
 
       fetchSavedPosts()
     }
+    else if(filteredEvents && filteredEvents.length > 0){
+      setPosts(filteredEvents);
+    }
     
     
     else{
+
       const normalUrl = "http://localhost:3000/event";
+      if(!filteredEvents){
       fetchPosts(normalUrl);
+      }
     }
  
-  }, [isProfile, isCommunity, _id, token, community]);
+  }, [isProfile, isCommunity, _id, token, community,filteredEvents]);
   
+ 
 
   console.log(isProfile);
   console.log(isCommunity)

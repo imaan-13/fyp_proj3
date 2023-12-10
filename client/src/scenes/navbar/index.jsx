@@ -116,7 +116,7 @@ const Navbar = () => {
       {/* DESKTOP NAV */}
       {isNonMobileScreens ? (
         <FlexBetween gap="2rem">
-          <LocationOnIcon></LocationOnIcon>
+          <LocationOnIcon onClick={()=>navigate("/nearby-events")}></LocationOnIcon>
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />

@@ -30,10 +30,11 @@ const AddMap = ({ onLocationChange }) => {
           console.log("full",newCoords)
           console.log("lat",newCoords.center.lat);
           console.log("long",newCoords.center.lng);
+          console.log("address",newCoords.name);
           setLatitude(newCoords.center.lat)
           setLongitude(newCoords.center.lng)
           setCoords(newCoords);
-          onLocationChange(newCoords.center.lat, newCoords.center.lng);
+          onLocationChange(newCoords.center.lat, newCoords.center.lng,newCoords.name);
           const bbox = e.geocode.bbox;
           const poly = L.polygon([
             bbox.getSouthEast(),

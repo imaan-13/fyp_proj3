@@ -49,7 +49,7 @@ const ChatBox = () => {
     });
     const data = await response.json();
     // console.log(data.friends.firstName)
-    setFriends(data)
+    setFriends(data);
     
   };
 
@@ -112,12 +112,13 @@ const ChatBox = () => {
               // color={neutralLight}
               label="Select a friend"
             >
-              {friends.map((friend) => (
-                <MenuItem key={friend.firstName +" "+ friend.lastName} value={friend} sx={{ fontSize: '14px', color: 'black' }}>
-                  {friend.firstName+" "+friend.lastName}
-         
+              {friends && (
+              friends.map((friend) => (
+                <MenuItem key={friend.firstName + " " + friend.lastName} value={friend} sx={{ fontSize: '14px', color: 'black' }}>
+                  {friend.firstName + " " + friend.lastName}
                 </MenuItem>
-              ))}
+  ))
+)}
             </Select>
           </FormControl>
           </FlexBetween>
