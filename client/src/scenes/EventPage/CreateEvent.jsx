@@ -24,6 +24,7 @@ import Popup from "components/popUp";
 // } from 'react-map-gl';
 
 import AddMap from "components/Map";
+import EventRecommendation from "scenes/widgets/RecommendedWidgets";
 
 const  CreateEventForm = () => {
   const { palette } = useTheme();

@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import CreateEventForm from "scenes/EventPage/CreateEvent";
 import ChatBox from "components/chat";
 import VerificationForm from "scenes/EventPage/VerificationPage";
+import EventRecommendation from "scenes/widgets/RecommendedWidgets";
 const Eventpage =()=>{
   
 
@@ -73,7 +74,8 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 {isNonMobileScreens && (
           <Box flexBasis="26%">
             {/* <AdvertWidget /> */}
-            <ChatBox></ChatBox>
+            {/* <ChatBox></ChatBox> */}
+            <EventRecommendation></EventRecommendation>
             {/* <ChatComponent></ChatComponent> */}
             <Box m="2rem 0" />
             {/* <FriendListWidget userId={_id} /> */}

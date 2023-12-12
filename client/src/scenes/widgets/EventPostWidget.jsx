@@ -96,13 +96,33 @@
   
     fetchPostData();
     // if(setIsLiked(true)){
-  
+    
     // }
   }, [postId, token, loggedInUserId]);
-  
 
+ const interaction = async({val,saveVal})=>{ 
+  const interactionResponse = await fetch(`http://localhost:3000/event/create-interaction`, {
+    method: "POST",
+    body: JSON.stringify({
+      userID: loggedInUserId,
+      eventID: postId,
+      likedEvent: val,
+      SavedEvent: saveVal,
+      community: community,
+    }),
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+ 
+  if (interactionResponse.ok) {
+    console.log("Interaction created successfully");
+  } else {
+    console.error("Error creating interaction");
+  }
 
-
+ }
   const patchLike = async () => {
         
     try {
@@ -118,6 +138,8 @@
           // window.location.reload();
           setIsLiked(updatedPost.likes.includes(loggedInUserId))
           setNumberLikes(updatedPost.likes.length);
+          interaction({val:updatedPost.likes.includes(loggedInUserId)});
+
         } else {
           // Handle error scenarios
           console.error("Error updating like status");
@@ -125,6 +147,9 @@
       } catch (error) {
         console.error("An error occurred:", error);
       }
+
+  
+
       };
   
       const toggleSavePost = async () => {
@@ -140,6 +165,7 @@
             const updatedPost = await response.json();
             setPost(updatedPost); 
             setIsSaved(updatedPost.saved.includes(loggedInUserId)); // Toggle the saved status
+            interaction({saveVal:updatedPost.saved.includes(loggedInUserId)});
           } else {
             console.error("Error updating saved status");
           }

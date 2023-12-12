@@ -12,7 +12,7 @@ import Navbar from "scenes/navbar";
 import UserWidget from "scenes/widgets/UserWidget";
 import EventPostsWidget from "scenes/widgets/EventPostsWidget";
 import ChatBox from "components/chat";
-
+import EventRecommendation from "scenes/widgets/RecommendedWidgets";
 import EventMap from "components/MapWithEvents";
 
 const EventsNearYou = () => {
@@ -101,6 +101,7 @@ const EventsNearYou = () => {
               <MenuItem value={15}>15</MenuItem>
               <MenuItem value={500}>500</MenuItem>
               <MenuItem value={1000}>1000</MenuItem>
+              <MenuItem value={2000}>2000</MenuItem>
               {/* Add more radius values as needed */}
             </Select>
           </FormControl>
@@ -113,7 +114,8 @@ const EventsNearYou = () => {
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">
-            <ChatBox />
+            {/* <ChatBox /> */}
+            <EventRecommendation></EventRecommendation>
             <Box m="2rem 0" />
           </Box>
         )}

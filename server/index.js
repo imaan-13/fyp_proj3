@@ -70,6 +70,62 @@ cloudinary.config({
 //   });
 //   const upload = multer({ storage });
   
+app.get('/generate-similarity-matrix', async (req, res) => {
+  try {
+    const client = await MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    const db = client.db();
+
+    const data = await db.collection('test').find().toArray();
+    const users = [];
+    const items = [];
+    const ratings = [];
+
+    data.forEach((doc) => {
+      const user = doc.user;
+      const item = doc.item;
+      const rating = doc.rating;
+
+      if (!users.includes(user)) {
+        users.push(user);
+      }
+
+      if (!items.includes(item)) {
+        items.push(item);
+      }
+
+      ratings.push([users.indexOf(user), items.indexOf(item), rating]);
+    });
+
+    const similarityMatrix = [];
+
+    for (let i = 0; i < users.length; i++) {
+      const row = [];
+      for (let j = 0; j < users.length; j++) {
+        const similarities = [];
+        for (let k = 0; k < items.length; k++) {
+          if (ratings[i][k] && ratings[j][k]) {
+            similarities.push(ratings[i][k] - ratings[j][k]);
+          }
+        }
+        if (similarities.length > 0) {
+          const similarity = similarities.reduce((acc, cur) => acc + cur) / similarities.length;
+          row.push(similarity);
+        } else {
+          row.push(0);
+        }
+      }
+      similarityMatrix.push(row);
+    }
+
+    res.json({ similarityMatrix });
+
+    client.close();
+  } catch (error) {
+    console.error('Error generating similarity matrix:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
   /* ROUTES WITH FILES */
   app.post("/auth/register", register);
   app.post("/posts", verifyToken, createPost);  

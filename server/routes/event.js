@@ -1,4 +1,4 @@
-import { submitFormData , fetchEventPosts,likesPost,postLikes, savePost,communityPost,fetchSavedPosts,filterEventsByRadius} from "../controllers/event.js";
+import { submitFormData , fetchEventPosts,likesPost,postLikes, savePost,communityPost,fetchSavedPosts,filterEventsByRadius, createInteraction, mostLikedCommunity} from "../controllers/event.js";
 import express from "express";
 import { verifyToken } from "../middleware/auth.js";
 const router = express.Router();
@@ -13,4 +13,6 @@ router.get("/:id",verifyToken,postLikes)
 router.post("/community",verifyToken,communityPost)
 router.post("/saved-posts",verifyToken,fetchSavedPosts)
 router.post("/events-nearby",filterEventsByRadius)
+router.post("/create-interaction",verifyToken,createInteraction)
+router.post("/mostLikedCommunity",mostLikedCommunity)
 export default router;

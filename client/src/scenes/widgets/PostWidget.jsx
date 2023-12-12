@@ -98,9 +98,41 @@ const patchLike = async () => {
         // Handle error scenarios
         console.error("Error updating like status");
       }
+
+      
+        // const interactionResponse = await fetch(`http://localhost:3000/event/create-interaction`, {
+        //   method: "POST",
+        //   body: JSON.stringify({
+        //     userID: loggedInUserId,
+        //     eventID: postId, // Assuming postId represents the event ID
+        //     likedEvent: true,
+        //     SavedEvent: false,
+        //     community: post.community, // Assuming the post has a community field
+        //   }),
+        //   headers: {
+        //     Authorization: `Bearer ${token}`,
+        //     "Content-Type": "application/json",
+        //   },
+        // });
+      
+        // if (interactionResponse.ok) {
+        //   console.log("Interaction created successfully");
+        // } else {
+        //   console.error("Error creating interaction");
+        // }
+
+      
+
+
     } catch (error) {
       console.error("An error occurred:", error);
     }
+
+
+
+
+    
+
     };
 
 

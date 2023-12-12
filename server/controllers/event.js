@@ -1,5 +1,6 @@
 import Event from '../models/Events.js';
 import User from '../models/User.js';
+import UserEventInteraction from '../models/userEventInteraction.js';
 // const FormDataModel = require('../models/Events');
 
 export const submitFormData = async (req, res) => {
@@ -244,5 +245,110 @@ export const filterEventsByRadius = async (req,res) => {
   } catch (error) {
     console.error('Error filtering events:', error);
     res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+// export const createInteraction= async (req, res) => {
+//   try {
+//     const { userID, eventID, likedEvent,SavedEvent, community } = req.body;
+
+//     const newInteraction = new UserEventInteraction({
+//       userID,
+//       eventID,
+//       likedEvent,
+//       SavedEvent,
+//       community,
+//     });
+
+//     const savedInteraction = await newInteraction.save();
+
+//     res.status(201).json(savedInteraction);
+//   } catch (error) {
+//     console.error('Error creating user-event interaction:', error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+
+// }
+
+
+export const createInteraction = async (req, res) => {
+  try {
+    const { userID, eventID, likedEvent, SavedEvent, community } = req.body;
+
+    // Check if the interaction already exists
+    const existingInteraction = await UserEventInteraction.findOneAndUpdate(
+      { userID, eventID },
+      { likedEvent, SavedEvent, community },
+      { new: true, upsert: true } // Options: `new` returns the updated document, `upsert` creates a new one if not found
+    );
+
+    res.status(201).json(existingInteraction);
+  } catch (error) {
+    console.error('Error creating/updating user-event interaction:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
+
+
+const fetchMostLikedCommunity = async (userId) => {
+  try {
+    // Find all interactions for the user
+    const userInteractions = await UserEventInteraction.find({ userID: userId });
+
+    // Filter out liked communities
+    const likedCommunities = userInteractions.filter((interaction) => interaction.likedEvent);
+
+    // Count occurrences of each community
+    const communityCounts = likedCommunities.reduce((counts, interaction) => {
+      const community = interaction.community;
+      counts[community] = (counts[community] || 0) + 1;
+      return counts;
+    }, {});
+
+    // Find the community with the highest count
+    const mostLikedCommunity = Object.keys(communityCounts).reduce((a, b) => (communityCounts[a] > communityCounts[b] ? a : b));
+
+    // If there are liked communities, return the most liked one; otherwise, return null
+    return mostLikedCommunity ? mostLikedCommunity : null;
+  } catch (error) {
+    console.error('Error fetching most liked community:', error);
+    throw error;
+  }
+};
+
+
+
+
+
+ export const mostLikedCommunity= async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    // Fetch the most liked community
+    console.log("MOSTLIKED USERID",userId)
+    const mostLikedCommunity = await fetchMostLikedCommunity(userId, 'likedEvent');
+    console.log("MOST LIKED",mostLikedCommunity)
+    const posts = await Event.find({ community:mostLikedCommunity });
+    res.status(200).json(posts );
+  } catch (error) {
+    console.error('Error fetching most liked community:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+export const mostSavedCommunity= async (req, res) => {
+  try {
+    const { userID } = req.query;
+
+    // Fetch the most saved community
+    const mostSavedCommunity = await fetchMostLikedOrSavedCommunity(userID, 'SavedEvent');
+
+    res.status(200).json({ mostSavedCommunity });
+  } catch (error) {
+    console.error('Error fetching most saved community:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };

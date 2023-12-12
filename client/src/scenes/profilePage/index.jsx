@@ -9,6 +9,7 @@ import PostsWidget from "scenes/widgets/PostsWidget";
 import UserWidget from "scenes/widgets/UserWidget";
 import ChatBox from "components/chat";
 import StarRating from "scenes/widgets/feedback";
+import EventRecommendation from "scenes/widgets/RecommendedWidgets";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -71,8 +72,9 @@ const ProfilePage = () => {
         {isNonMobileScreens && (
           <Box flexBasis="26%">
             {/* <AdvertWidget /> */}
-            <ChatBox></ChatBox>
+            {/* <ChatBox></ChatBox> */}
             {/* <ChatComponent></ChatComponent> */}
+            <EventRecommendation></EventRecommendation>
             <Box m="2rem 0" />
             {/* <FriendListWidget userId={_id} /> */}
             
