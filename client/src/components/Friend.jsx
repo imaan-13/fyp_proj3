@@ -5,36 +5,52 @@ import { useNavigate } from "react-router-dom";
 import { setFriends } from "state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
+import { useState } from "react";
 
-const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
+const Friend = ({ friendId, name, subtitle, userPicturePath, userfriends }) => {
+  const [friends,setFriends]=useState([])
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
-  const friends = useSelector((state) => state.user.friends);
+  // const friends = useSelector((state) => state.user.friends);
 
   const { palette } = useTheme();
   const primaryLight = palette.primary.light;
   const primaryDark = palette.primary.dark;
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
-
-  const isFriend = friends.find((friend) => friend._id === friendId);
+  // const [isFriend,setIsFriend]=useState("");
+  const isFriend = userfriends.includes(friendId)
+  console.log("is friend", isFriend)
 
   const patchFriend = async () => {
+
+
+    const requestData = {
+      id: _id,
+      friendId:friendId
+    };
     const response = await fetch(
-      `http://localhost:3000/users/${_id}/${friendId}`,
+      `http://localhost:3000/users/addRemoveFriend`,
       {
-        method: "PATCH",
+        method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
+        body:JSON.stringify(requestData),
       }
     );
     const data = await response.json();
-    dispatch(setFriends({ friends: data }));
+    // console.log("friends:",data.friends.includes(friendId))
+    // setIsFriend(data.friends.includes(friendId))
+    setFriends({ friends: data });
+
+    window.location.reload();
   };
+
+ 
 
   return (
     <FlexBetween>
@@ -70,6 +86,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
       >
         {isFriend ? (
           <PersonRemoveOutlined sx={{ color: primaryDark }} />
+       
         ) : (
           <PersonAddOutlined sx={{ color: primaryDark }} />
         )}

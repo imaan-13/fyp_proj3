@@ -13,11 +13,15 @@ import {
   import { useEffect, useState } from "react";
   import { useNavigate } from "react-router-dom";
   import { Link } from 'react-router-dom';
-
+  // import {PersonAddIcon} from '@mui/icons-material/PersonAdd';
+  // import {PersonRemoveIcon} from '@mui/icons-material/PersonRemove';
+  import { PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material";
  
   
-  const UserWidget = ({ userId, picturePath }) => {
+  const UserWidget = ({ userId, picturePath,loggedInUser }) => {
     const [user, setUser] = useState(null);
+    const [addedAsFriend, setaddedAsFriend]=useState(null);
+    const [pic,setpic]=useState(null);
     const { palette } = useTheme();
     const navigate = useNavigate();
     const token = useSelector((state) => state.token);
@@ -25,6 +29,9 @@ import {
     const medium = palette.neutral.medium;
     const main = palette.neutral.main;
   
+    const primaryLight = palette.primary.light;
+    const primaryDark = palette.primary.dark;
+
     const getUser = async () => {
       const response = await fetch(`http://localhost:3000/users/${userId}`, {
         method: "GET",
@@ -32,10 +39,46 @@ import {
       });
       const data = await response.json();
       setUser(data);
+      setpic(data.picturePath)
+      console.log(data.friends.includes(loggedInUser))
+      setaddedAsFriend(data.friends.includes(loggedInUser))
     };
+
+    const addUserAsFriend = async () => {
+      const requestData = {
+        id: loggedInUser,
+        friendId:userId
+      };
+    
+      try {
+        const response = await fetch(`http://localhost:3000/users/addRemoveFriend`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(requestData),
+        });
+    
+        if (response.status === 200) {
+          // Friend added successfully
+          console.log("Friend added successfully.");
+          window.location.reload()
+        } else {
+          // Handle any errors here
+          console.error("Error adding friend.");
+        }
+      } catch (error) {
+        console.error("Error adding friend:", error);
+      }
+    };
+    
+
   
     useEffect(() => {
       getUser();
+
+      
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
   
     if (!user) {
@@ -79,7 +122,18 @@ import {
               <Typography color={medium}>{friends.length} friends</Typography>
             </Box>
           </FlexBetween>
-          <ManageAccountsOutlined />
+          {/* <ManageAccountsOutlined /> */}
+          {/* {(userId!==loggedInUser) && (!addedAsFriend) &&
+          
+          
+          <PersonAddOutlined onClick={addUserAsFriend} sx={{ color: primaryDark }} />} */}
+          {
+          (userId !== loggedInUser && !addedAsFriend) ? (
+            <PersonAddOutlined onClick={addUserAsFriend} sx={{ color: primaryDark }} />
+           ) : (userId !== loggedInUser) ? <PersonRemoveOutlined onClick={addUserAsFriend} sx={{ color: primaryDark }}/>: null
+          }
+
+          
         </FlexBetween>
   
         <Divider />
@@ -117,6 +171,7 @@ import {
         <Divider />
   
         {/* FOURTH ROW */}
+        {(userId===loggedInUser)&&(
         <Box p="1rem 0">
         
   
@@ -134,10 +189,25 @@ import {
             CREATE EVENT 
           </Button>
           </Link>
+
+          <Link to="/edit-profile">
+            <Button
+          
+            sx={{
+              color: palette.background.alt,
+              backgroundColor: palette.primary.main,
+              borderRadius: "3rem",
+            }}
+            // onclick={ ()=>navigate("/homePage/EventForm")}
+          >
+            EDIT PROFILE 
+          </Button>
+          </Link>
           </FlexBetween>
   
        
-        </Box>
+        </Box>)
+        }
       </WidgetWrapper>
     );
   };

@@ -5,6 +5,7 @@ import App from './App';
 import authReducer from "./state";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
+// import ChatProvider from 'context/ChatProvider';
 import {
   persistStore,
   persistReducer,
@@ -33,11 +34,14 @@ const store = configureStore({
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  // <ChatProvider>
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistStore(store)}>
+   
         <App />
       </PersistGate>
     </Provider>
   </React.StrictMode>
+  // </ChatProvider>
 );
