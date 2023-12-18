@@ -1,6 +1,7 @@
 
 // import './App.css';
 import { useState } from 'react';
+// import "./style.scss";
 import {BrowserRouter, Navigate, Routes, Route} from 'react-router-dom';
 import Homepage from 'scenes/homePage';
 import LoginPage from 'scenes/loginPage';
@@ -25,6 +26,7 @@ import EditProfileForm from 'scenes/profilePage/editprofile';
 import EditProfilepage from 'scenes/profilePage/editprofile';
 import MyChats from 'scenes/chat/mychatsPage';
 import EventsNearYou from 'scenes/EventPage/EventsNearYou';
+
 import { useEffect } from 'react';
 
 
@@ -70,7 +72,9 @@ function App() {
         <Route path="/saved-events" element={isAuth?<SavedEvents></SavedEvents>:<Navigate to="/" />}/>
         <Route path="/other-user/:userId" element={isAuth?<ProfilePage></ProfilePage>:<Navigate to="/" />}/>
         <Route path="/edit-profile" element={isAuth?<EditProfilepage></EditProfilepage>:<Navigate to="/" />}></Route>
+      
         <Route path="/mychats" element={isAuth?<MyChats></MyChats>:<Navigate to="/" />}></Route>
+        
         <Route path="/nearby-events" element={isAuth?<EventsNearYou></EventsNearYou>:<Navigate to="/"/>}></Route>
       </Routes>
       </ThemeProvider>

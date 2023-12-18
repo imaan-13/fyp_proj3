@@ -16,13 +16,6 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import Popup from "components/popUp";
-// import { AddressAutofill ,MapboxSearchBox, SearchBox} from "@mapbox/search-js-react";
-// import Map, {
-//   GeolocateControl,
-//   Marker,
-//   NavigationControl,
-// } from 'react-map-gl';
-
 import AddMap from "components/Map";
 import EventRecommendation from "scenes/widgets/RecommendedWidgets";
 

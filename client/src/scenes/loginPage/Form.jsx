@@ -15,6 +15,8 @@ import {
 import { setLogin } from 'state';
 import { useDispatch } from "react-redux";
 import FlexBetween from 'components/FlexBetween';
+import { doc,setDoc } from 'firebase/firestore';
+import  {db,storage}  from 'firebase.js';
 
 const Form = () => {
   // ... (your existing state declarations)
@@ -33,9 +35,11 @@ const [url,setUrl]=useState("");
   const dispatch=useDispatch();
   const isLogin = pageType === 'login';
   const isRegister = pageType === 'register';
+let image="";
+
 const handleFormSubmit = async (e) => {
     e.preventDefault();
-  
+    let userId="";
     if (isLogin) {
     
   
@@ -112,6 +116,7 @@ const handleFormSubmit = async (e) => {
             const cloudinaryData =  await response1.json();
             if (cloudinaryData.secure_url) {
               setUrl(cloudinaryData.secure_url);
+              image=cloudinaryData.secure_url;
               formData.picturePath=cloudinaryData.secure_url;
               console.log("Image uploaded and URL set:", cloudinaryData.secure_url);
              
@@ -137,10 +142,25 @@ const handleFormSubmit = async (e) => {
         if (response.ok) {
           // Successful registration
           const savedUser = await response.json();
-  
+          userId=savedUser._id;
+
+         
           // Handle success, e.g., display a success message
           console.log('Registered:', savedUser);
-  
+         try {
+          await setDoc(doc(db, 'user', userId), {
+            // your document data here
+            id:userId,
+            name:firstName,
+            picture:image,
+          });
+
+          await setDoc(doc(db,"userChats",userId),{});
+          console.log('Document created successfully!');
+        } catch (error) {
+          console.error('Error setting document:', error);
+          // Handle the error, e.g., show a user-friendly message
+        }
           // Switch to the login page
           setPageType('login');
           // Clear the form fields
@@ -168,7 +188,10 @@ const handleFormSubmit = async (e) => {
       } catch (error) {
         console.error('Error during registration:', error);
       }
+
+    
     }
+
   };
   
   return (

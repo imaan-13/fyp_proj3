@@ -65,7 +65,6 @@ const MyPostWidget = ({picturePath}) => {
   const handleImageChange =  (event) => {
     setImage(event.target.files[0]);
     
-
       
   };
 
@@ -78,9 +77,6 @@ const MyPostWidget = ({picturePath}) => {
     window.location.reload();
   };
   
-
-
-
   const handlePostSubmit = async (event) => {
  
     console.log(_id);
@@ -161,21 +157,8 @@ const MyPostWidget = ({picturePath}) => {
       <FlexBetween>
     <div>
     <h2>Create a New Post</h2>
-
-      <FlexBetween gap="1.5rem">
-        
+      <FlexBetween gap="1.5rem">  
       <UserImage image={picturePath} />
-      {/* <label>Title</label> */}
-
-{/*       
-      <input
-        
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={handleTitleChange}
-      /> */}
-
         <InputBase
             placeholder="What's on your mind..."
             onChange={handleBodyChange}
@@ -188,20 +171,8 @@ const MyPostWidget = ({picturePath}) => {
             }}
           />
       </FlexBetween>
+          <FlexBetween >
 
-      {/* <textarea
-
-        placeholder="Body"
-        value={body}
-        onChange={handleBodyChange}
-      /> */}
-
-
-      
-      
-      <FlexBetween >
-     
-      
       <Typography color={mediumMain}><input type="file" onChange={handleImageChange} /></Typography>
       
       <br></br>
