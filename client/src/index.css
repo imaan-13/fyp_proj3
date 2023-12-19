@@ -91,10 +91,18 @@ body,
   .home {
     background-color: #a7bcff;
     height: 100vh;
+    width:185vh;
+    /* display: flex;
+    align-items: right;
+    justify-content: right; */
+
     display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+ /* Align items to the bottom */
+  /* justify-content: flex-end;  */
+
+  max-width: 80%; /* Adjust the maximum width as needed */
+  margin: 5px;
+    }
   
   .container {
     border: 1px solid white;
@@ -103,6 +111,8 @@ body,
     height: 100%;
     display: flex;
     overflow: hidden;
+
+    
   }
   
   @media only screen and (max-width: 768px) {

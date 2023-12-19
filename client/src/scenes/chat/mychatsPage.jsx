@@ -114,17 +114,16 @@ const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
         gap="0.5rem"
         justifyContent="space-between"
       >
-        <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-          <UserWidget userId={_id} picturePath={picturePath} loggedInUser={_id}/>
+        <Box style={{ flexBasis: 'auto', width: 'auto' }}>
+          <UserWidget userId={_id} picturePath={picturePath} loggedInUser={_id}   style={{ width: '100%' }}/>
         </Box>
-        <Box
+         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
           
-          <h3>MY CHATS</h3>
          <div className="mychats-container">
-
+         {/* <h3>MY CHATS</h3> */}
           <div className="home">
           <div className="container">
           <Sidebar userId={_id} picturePath={picturePath} handleSelect={handleSelect} currentUser={user}></Sidebar>
