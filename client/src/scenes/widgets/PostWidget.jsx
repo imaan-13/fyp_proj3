@@ -9,7 +9,7 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import UserImage from "components/UserImage";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useState } from "react";
-import Comment from "components/comment";
+import CommentSection from "./CommentsSection";
 // import { dispatch } from "react";
 import { useDispatch } from 'react-redux';
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -23,6 +23,7 @@ import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined
 // import {  } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
+
 const PostWidget = ({
 //   title,
   body,
@@ -35,7 +36,11 @@ const PostWidget = ({
 }) => {
   
  const loggedInUserId = useSelector((state) => state.user._id);
- 
+ const firstname=useSelector((state)=>state.user.firstName)
+ const lastname=useSelector(state=>state.user.lastName);
+
+ const username=firstname+" "+lastname;
+ console.log("postwideget", username);
 //  const isLiked = Boolean(loggedInUserId.likes);
 //  const likeCount = loggedInUserId.likes.length;
 const dispatch=useDispatch()
@@ -46,6 +51,7 @@ const dispatch=useDispatch()
 //  const [isChecked, setIsChecked] = useState(false);
  const [isLiked, setIsLiked] = useState("false");
  const [numberLikes,setNumberLikes]=useState([]);
+ const [showComments, setShowComments] = useState(false);
  const navigate = useNavigate();
 
  useEffect(() => {
@@ -214,10 +220,10 @@ const patchLike = async () => {
             label={numberLikes}
           />
           {/* <CommentIcon style={{ cursor: "pointer" }}></CommentIcon> */}
-          <span style={{ cursor: 'pointer', verticalAlign: 'middle' }}>
+          <span style={{ cursor: 'pointer', verticalAlign: 'middle' }}     onClick={() => setShowComments(!showComments)}>
           <InsertCommentOutlinedIcon sx={{ marginTop: '7px' }} />
         
-
+           {showComments && <CommentSection postId={postId} user={username}/>}
         </span>
           </Box>
 

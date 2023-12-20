@@ -41,6 +41,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 import { useEffect } from 'react';
 import { Rating } from '@mui/material';
+import WidgetWrapper from 'components/WidgetWrapper';
 const StarRating = () => {
   const [rating, setRating] = useState(0);
   const[avgRating,setavgRating]=useState(0);
@@ -152,7 +153,9 @@ const StarRating = () => {
   // );
 
   return (
-    <div style={{ textAlign: 'center', backgroundColor: '#fff', padding: '20px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+
+    <WidgetWrapper>
+    <div style={{ textAlign: 'center', backgroundColor: 'transparent', padding: '20px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
       <h2>Rate the Event Organizer</h2>
       
       {isVerified ? (
@@ -183,6 +186,7 @@ const StarRating = () => {
         </div>
       )}
     </div>
+    </WidgetWrapper>
   );
 };
 

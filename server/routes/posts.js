@@ -1,5 +1,5 @@
 import express from "express";
-import { communityPost, getFeedPosts, getUserPosts,likesPost,postLikes} from "../controllers/posts.js";
+import { communityPost, getFeedPosts, getUserPosts,likesPost,postLikes, addAllComments, getComments} from "../controllers/posts.js";
 import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
@@ -14,5 +14,8 @@ router.get("/:userId/posts", verifyToken, getUserPosts);
 router.put("/:id/like",verifyToken,likesPost)
 router.get("/:id",verifyToken,postLikes)
 router.post("/community",verifyToken,communityPost)
+
+router.post('/:postId/comments',verifyToken, addAllComments)
+router.get('/:postId/comments',verifyToken,getComments)
 // router.put("/:id/unlike",verifyToken,unlikesPost)
 export default router;
