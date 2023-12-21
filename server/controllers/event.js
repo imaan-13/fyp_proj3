@@ -352,3 +352,49 @@ export const mostSavedCommunity= async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+
+
+
+
+export const addAllComments= async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const { text, user } = req.body;
+
+    const post = await Event.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    const newComment = { text, user };
+    post.comments.push(newComment);
+    await post.save();
+
+    res.status(201).json(newComment);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// Route to get all comments for a post
+export const getComments= async (req, res) => {
+  try {
+    const { postId } = req.params;
+
+    const post = await Event.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    const comments = post.comments;
+
+    res.status(200).json(comments);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};

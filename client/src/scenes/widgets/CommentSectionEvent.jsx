@@ -13,7 +13,7 @@ const CommentSectionEvent = ({ postId, user}) => {
 
   const fetchComments = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/posts/${postId}/comments`, {
+      const response = await fetch(`http://localhost:3000/event/${postId}/comments`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -45,7 +45,7 @@ const CommentSectionEvent = ({ postId, user}) => {
     // setComments([...comments, newComment]);
     // setCommentText("");
     try {
-        const response =  fetch(`http://localhost:3000/posts/${postId}/comments`, {
+        const response =  fetch(`http://localhost:3000/event/${postId}/comments`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

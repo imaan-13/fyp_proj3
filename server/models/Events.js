@@ -78,7 +78,12 @@ const eventSchema = new mongoose.Schema({
 
     address:{
         type:String,
-    }
+    },
+
+    comments:{
+        type:Array,
+        default:[]
+      }
 });
 
 const Event = mongoose.model('Event', eventSchema);
