@@ -19,6 +19,8 @@
   // import { SaveOutlinedIcon, SavedIcon } from "@mui/icons-material";
   import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
   import BookmarkIcon from '@mui/icons-material/Bookmark';
+
+import CommentSectionEvent from "./CommentSectionEvent";
   import DeleteIcon from '@mui/icons-material/Delete';
   import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
   const EventPostWidget = ({
@@ -44,14 +46,18 @@
   }) => {
     
    const loggedInUserId = useSelector((state) => state.user._id);
-   
+ 
+   const firstname=useSelector((state)=>state.user.firstName)
+   const lastname=useSelector(state=>state.user.lastName);
+  
+ const username=firstname+" "+lastname;
   //  const isLiked = Boolean(loggedInUserId.likes);
   //  const likeCount = loggedInUserId.likes.length;
   const dispatch=useDispatch()
    const token = useSelector((state) => state.token)
    const [post, setPost] = useState([]);
   // const [postLikes,setpostLikes]=useState()
-  
+  const [showComments, setShowComments] = useState(false);
   //  const [isChecked, setIsChecked] = useState(false);
    const [isLiked, setIsLiked] = useState("false");
    const [isSaved, setIsSaved] = useState("");
@@ -276,10 +282,16 @@
               }
               label = {numberLikes}
            />
-            <span style={{ cursor: 'pointer', verticalAlign: 'middle' }}>
+            {/* <span style={{ cursor: 'pointer', verticalAlign: 'middle' }}>
           <InsertCommentOutlinedIcon sx={{ marginTop: '7px' }} />
 
-         </span>
+         </span> */}
+
+<span style={{ cursor: 'pointer', verticalAlign: 'middle' }}     onClick={() => setShowComments(!showComments)}>
+          <InsertCommentOutlinedIcon sx={{ marginTop: '7px' }} />
+        
+           {showComments && <CommentSectionEvent postId={postId} user={username}/>}
+        </span>
          </Box>
               <FormControlLabel
           control={
